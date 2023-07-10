@@ -18,8 +18,8 @@ class LoginViewController : UIViewController {
     }
     
     @IBAction func buttonAction(_ sender: Any) {
-        labelOutlet.text = String(counter)
         counter += 1
+        labelOutlet.text = String(counter)
     }
     
 }
