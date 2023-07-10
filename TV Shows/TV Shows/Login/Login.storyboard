@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y1D-oC-EPh">
-                                <rect key="frame" x="125" y="439" width="143" height="54"/>
+                                <rect key="frame" x="125" y="539" width="143" height="54"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="tinted" title="Click Me" cornerStyle="capsule" titleAlignment="center">
@@ -27,8 +27,12 @@
                                     <action selector="buttonAction:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="x59-6g-j68"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Usv-lN-HK0">
+                                <rect key="frame" x="186" y="277" width="20.000000000011596" height="19.999999999988518"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RZ8-dG-fwc">
-                                <rect key="frame" x="122" y="249" width="149.99999999999989" height="150.00000000002035"/>
+                                <rect key="frame" x="122" y="351" width="149.99999999999989" height="150.00000000002035"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <rect key="contentStretch" x="0.84999999999999998" y="0.0" width="1" height="1"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="118"/>
@@ -40,6 +44,7 @@
                         <color key="backgroundColor" red="1" green="0.82896111151734131" blue="0.98899015772140664" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </view>
                     <connections>
+                        <outlet property="ActivityIndicatorOutlet" destination="Usv-lN-HK0" id="BuZ-jZ-hbA"/>
                         <outlet property="labelOutlet" destination="RZ8-dG-fwc" id="vIJ-tW-Iyv"/>
                     </connections>
                 </viewController>
