@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 final class LoginViewController : UIViewController {
     
@@ -25,6 +26,8 @@ final class LoginViewController : UIViewController {
         activityIndicatorOutlet.startAnimating()
         
         self.perform(#selector(LoginViewController.stopActivityIndicator), with: nil, afterDelay: 3.0)
+        
+        MBProgressHUD.showAdded(to: view, animated: true)
         
     }
     
