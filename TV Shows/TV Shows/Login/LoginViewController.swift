@@ -7,33 +7,32 @@
 
 import UIKit
 
-class LoginViewController : UIViewController {
+final class LoginViewController : UIViewController {
     
     @IBOutlet weak var labelOutlet: UILabel!
-    @IBOutlet weak var ActivityIndicatorOutlet: UIActivityIndicatorView!
+    @IBOutlet weak var activityIndicatorOutlet: UIActivityIndicatorView!
     var counter : Int = 0
     
-    @objc func stopActivityIndicator()
-    {
-        ActivityIndicatorOutlet.stopAnimating()
+    @objc func stopActivityIndicator() {
+        activityIndicatorOutlet.stopAnimating()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ActivityIndicatorOutlet.startAnimating()
+        activityIndicatorOutlet.startAnimating()
         
         self.perform(#selector(LoginViewController.stopActivityIndicator), with: nil, afterDelay: 3.0)
         
     }
     
-    @IBAction func buttonAction(_ sender: Any) {
+    @IBAction func buttonAction() {
         counter += 1
         labelOutlet.text = String(counter)
-        if(ActivityIndicatorOutlet.isAnimating){
-            ActivityIndicatorOutlet.stopAnimating()
+        if(activityIndicatorOutlet.isAnimating){
+            activityIndicatorOutlet.stopAnimating()
         }
         else{
-            ActivityIndicatorOutlet.startAnimating()
+            activityIndicatorOutlet.startAnimating()
         }
     }
     
