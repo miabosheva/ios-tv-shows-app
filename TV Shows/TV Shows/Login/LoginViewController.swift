@@ -8,20 +8,22 @@
 import UIKit
 import MBProgressHUD
 
-class LoginViewController : UIViewController {
+final class LoginViewController : UIViewController {
+    
+    // MARK: - Outlets
     
     @IBOutlet weak var labelOutlet: UILabel!
-    @IBOutlet weak var ActivityIndicatorOutlet: UIActivityIndicatorView!
-    var counter : Int = 0
+    @IBOutlet weak var activityIndicatorOutlet: UIActivityIndicatorView!
     
-    @objc func stopActivityIndicator()
-    {
-        ActivityIndicatorOutlet.stopAnimating()
-    }
+    // MARK: - Properties
+    
+    private var numberOfTaps: Int = 0
+    
+    // MARK: - Lifecycle methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ActivityIndicatorOutlet.startAnimating()
+        activityIndicatorOutlet.startAnimating()
         
         self.perform(#selector(LoginViewController.stopActivityIndicator), with: nil, afterDelay: 3.0)
         
@@ -29,15 +31,22 @@ class LoginViewController : UIViewController {
         
     }
     
-    @IBAction func buttonAction(_ sender: Any) {
-        counter += 1
-        labelOutlet.text = String(counter)
-        if(ActivityIndicatorOutlet.isAnimating){
-            ActivityIndicatorOutlet.stopAnimating()
+    // MARK: - Actions
+    
+    @IBAction func buttonAction() {
+        numberOfTaps += 1
+        labelOutlet.text = String(numberOfTaps)
+        if activityIndicatorOutlet.isAnimating {
+            activityIndicatorOutlet.stopAnimating()
         }
-        else{
-            ActivityIndicatorOutlet.startAnimating()
+        else {
+            activityIndicatorOutlet.startAnimating()
         }
     }
     
+    // MARK: - Utility methods
+    
+    @objc private func stopActivityIndicator() {
+        activityIndicatorOutlet.stopAnimating()
+    }
 }
