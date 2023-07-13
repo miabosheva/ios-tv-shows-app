@@ -9,13 +9,16 @@ import UIKit
 
 final class LoginViewController : UIViewController {
     
+    // MARK: - Outlets
+    
     @IBOutlet weak var labelOutlet: UILabel!
     @IBOutlet weak var activityIndicatorOutlet: UIActivityIndicatorView!
-    var counter : Int = 0
     
-    @objc func stopActivityIndicator() {
-        activityIndicatorOutlet.stopAnimating()
-    }
+    // MARK: - Properties
+    
+    private var numberOfTaps: Int = 0
+    
+    // MARK: - Lifecycle methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,15 +28,22 @@ final class LoginViewController : UIViewController {
         
     }
     
+    // MARK: - Actions
+    
     @IBAction func buttonAction() {
-        counter += 1
-        labelOutlet.text = String(counter)
-        if(activityIndicatorOutlet.isAnimating){
+        numberOfTaps += 1
+        labelOutlet.text = String(numberOfTaps)
+        if activityIndicatorOutlet.isAnimating {
             activityIndicatorOutlet.stopAnimating()
         }
-        else{
+        else {
             activityIndicatorOutlet.startAnimating()
         }
     }
     
+    // MARK: - Utility methods
+    
+    @objc private func stopActivityIndicator() {
+        activityIndicatorOutlet.stopAnimating()
+    }
 }
