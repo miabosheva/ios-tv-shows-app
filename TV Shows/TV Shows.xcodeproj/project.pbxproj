@@ -14,6 +14,7 @@
 		420E32812A587E8900C44A4A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 420E327F2A587E8900C44A4A /* LaunchScreen.storyboard */; };
 		420E328C2A5CA7E000C44A4A /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 420E328B2A5CA7E000C44A4A /* Login.storyboard */; };
 		420E328E2A5CA7F600C44A4A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420E328D2A5CA7F600C44A4A /* LoginViewController.swift */; };
+		42A453D62A606C7B003F5067 /* LoginExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A453D52A606C7B003F5067 /* LoginExtensions.swift */; };
 		83EC6941B50886D95719476C /* Pods_TV_Shows.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F14708C75C2F2233D76F5B1 /* Pods_TV_Shows.framework */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +29,7 @@
 		420E32822A587E8900C44A4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		420E328B2A5CA7E000C44A4A /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		420E328D2A5CA7F600C44A4A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		42A453D52A606C7B003F5067 /* LoginExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginExtensions.swift; sourceTree = "<group>"; };
 		8F14708C75C2F2233D76F5B1 /* Pods_TV_Shows.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TV_Shows.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		97BB4DCAE08C2525DC01C8A2 /* Pods-TV Shows.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TV Shows.debug.xcconfig"; path = "Target Support Files/Pods-TV Shows/Pods-TV Shows.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -81,6 +83,7 @@
 			children = (
 				420E328B2A5CA7E000C44A4A /* Login.storyboard */,
 				420E328D2A5CA7F600C44A4A /* LoginViewController.swift */,
+				42A453D52A606C7B003F5067 /* LoginExtensions.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -220,6 +223,7 @@
 				420E328E2A5CA7F600C44A4A /* LoginViewController.swift in Sources */,
 				420E32792A587E8800C44A4A /* ViewController.swift in Sources */,
 				420E32752A587E8800C44A4A /* AppDelegate.swift in Sources */,
+				42A453D62A606C7B003F5067 /* LoginExtensions.swift in Sources */,
 				420E32772A587E8800C44A4A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

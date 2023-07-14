@@ -11,42 +11,39 @@ import MBProgressHUD
 final class LoginViewController : UIViewController {
     
     // MARK: - Outlets
+    @IBOutlet weak var emailTextField: UITextField!
     
-    @IBOutlet weak var labelOutlet: UILabel!
-    @IBOutlet weak var activityIndicatorOutlet: UIActivityIndicatorView!
+    @IBOutlet weak var passwordTextField: UITextField!
     
-    // MARK: - Properties
+    @IBOutlet weak var rememberMeButton: UIButton!
     
-    private var numberOfTaps: Int = 0
     
     // MARK: - Lifecycle methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        activityIndicatorOutlet.startAnimating()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        let placeholderAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.7),
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17)
+        ]
         
-        self.perform(#selector(LoginViewController.stopActivityIndicator), with: nil, afterDelay: 3.0)
-        
-        MBProgressHUD.showAdded(to: view, animated: true)
-        
+        emailTextField.addBottomBorder()
+        passwordTextField.addBottomBorder()
+        emailTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: placeholderAttributes)
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: placeholderAttributes)
     }
     
     // MARK: - Actions
-    
-    @IBAction func buttonAction() {
-        numberOfTaps += 1
-        labelOutlet.text = String(numberOfTaps)
-        if activityIndicatorOutlet.isAnimating {
-            activityIndicatorOutlet.stopAnimating()
-        }
-        else {
-            activityIndicatorOutlet.startAnimating()
-        }
+    @IBAction func rememberMeButtonTap() {
+        
+        rememberMeButton.tintColor = UIColor.white
+        rememberMeButton.setImage(UIImage(systemName: "checkmark"), for: .selected)
+        rememberMeButton.setImage(UIImage(), for: .normal)
+        rememberMeButton.isSelected = !rememberMeButton.isSelected
+
     }
     
-    // MARK: - Utility methods
-    
-    @objc private func stopActivityIndicator() {
-        activityIndicatorOutlet.stopAnimating()
-    }
 }
