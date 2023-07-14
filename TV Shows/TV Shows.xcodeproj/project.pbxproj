@@ -14,7 +14,10 @@
 		420E32812A587E8900C44A4A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 420E327F2A587E8900C44A4A /* LaunchScreen.storyboard */; };
 		420E328C2A5CA7E000C44A4A /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 420E328B2A5CA7E000C44A4A /* Login.storyboard */; };
 		420E328E2A5CA7F600C44A4A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420E328D2A5CA7F600C44A4A /* LoginViewController.swift */; };
+		4259097D2A620C2900882A33 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4259097C2A620C2900882A33 /* User.swift */; };
 		42A453D62A606C7B003F5067 /* LoginExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A453D52A606C7B003F5067 /* LoginExtensions.swift */; };
+		42A453DB2A61F1DD003F5067 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A453DA2A61F1DD003F5067 /* HomeViewController.swift */; };
+		42A453DD2A61F1E7003F5067 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42A453DC2A61F1E7003F5067 /* Home.storyboard */; };
 		83EC6941B50886D95719476C /* Pods_TV_Shows.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F14708C75C2F2233D76F5B1 /* Pods_TV_Shows.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,7 +32,10 @@
 		420E32822A587E8900C44A4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		420E328B2A5CA7E000C44A4A /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		420E328D2A5CA7F600C44A4A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		4259097C2A620C2900882A33 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		42A453D52A606C7B003F5067 /* LoginExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginExtensions.swift; sourceTree = "<group>"; };
+		42A453DA2A61F1DD003F5067 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		42A453DC2A61F1E7003F5067 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		8F14708C75C2F2233D76F5B1 /* Pods_TV_Shows.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TV_Shows.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		97BB4DCAE08C2525DC01C8A2 /* Pods-TV Shows.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TV Shows.debug.xcconfig"; path = "Target Support Files/Pods-TV Shows/Pods-TV Shows.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -67,6 +73,7 @@
 		420E32732A587E8800C44A4A /* TV Shows */ = {
 			isa = PBXGroup;
 			children = (
+				42A453D72A61F1A1003F5067 /* Home */,
 				420E32882A5CA78A00C44A4A /* Login */,
 				420E32742A587E8800C44A4A /* AppDelegate.swift */,
 				420E32762A587E8800C44A4A /* SceneDelegate.swift */,
@@ -84,8 +91,18 @@
 				420E328B2A5CA7E000C44A4A /* Login.storyboard */,
 				420E328D2A5CA7F600C44A4A /* LoginViewController.swift */,
 				42A453D52A606C7B003F5067 /* LoginExtensions.swift */,
+				4259097C2A620C2900882A33 /* User.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		42A453D72A61F1A1003F5067 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				42A453DA2A61F1DD003F5067 /* HomeViewController.swift */,
+				42A453DC2A61F1E7003F5067 /* Home.storyboard */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		6CF102C3B2AE23C3CEE2C9D5 /* Frameworks */ = {
@@ -168,6 +185,7 @@
 				420E32812A587E8900C44A4A /* LaunchScreen.storyboard in Resources */,
 				420E327E2A587E8900C44A4A /* Assets.xcassets in Resources */,
 				420E328C2A5CA7E000C44A4A /* Login.storyboard in Resources */,
+				42A453DD2A61F1E7003F5067 /* Home.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +243,8 @@
 				420E32752A587E8800C44A4A /* AppDelegate.swift in Sources */,
 				42A453D62A606C7B003F5067 /* LoginExtensions.swift in Sources */,
 				420E32772A587E8800C44A4A /* SceneDelegate.swift in Sources */,
+				42A453DB2A61F1DD003F5067 /* HomeViewController.swift in Sources */,
+				4259097D2A620C2900882A33 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,7 +392,7 @@
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -402,7 +422,7 @@
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
