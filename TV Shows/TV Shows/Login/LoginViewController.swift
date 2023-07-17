@@ -30,8 +30,6 @@ final class LoginViewController : UIViewController {
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17)
         ]
         
-        emailTextField.addBottomBorder()
-        passwordTextField.addBottomBorder()
         emailTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: placeholderAttributes)
         passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: placeholderAttributes)
     }
