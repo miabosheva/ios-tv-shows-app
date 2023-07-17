@@ -91,8 +91,7 @@
                                                                                 <rect key="frame" x="0.0" y="0.0" width="350" height="50"/>
                                                                                 <color key="backgroundColor" red="0.32156862749999998" green="0.21176470589999999" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                 <constraints>
-                                                                                    <constraint firstAttribute="width" constant="350" id="8sB-fr-r6J"/>
-                                                                                    <constraint firstAttribute="height" constant="50" id="YZZ-2Z-2UV"/>
+                                                                                    <constraint firstAttribute="height" constant="50" id="FfW-Aq-FHD"/>
                                                                                 </constraints>
                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -102,8 +101,7 @@
                                                                                 <rect key="frame" x="0.0" y="65" width="350" height="50"/>
                                                                                 <color key="backgroundColor" red="0.32156862749999998" green="0.21176470589999999" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                 <constraints>
-                                                                                    <constraint firstAttribute="height" constant="50" id="cRu-g6-W3I"/>
-                                                                                    <constraint firstAttribute="width" constant="350" id="eHj-Na-JHa"/>
+                                                                                    <constraint firstAttribute="height" constant="50" id="Z9U-KG-I1o"/>
                                                                                 </constraints>
                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -171,6 +169,10 @@
                                                                         </subviews>
                                                                     </stackView>
                                                                 </subviews>
+                                                                <constraints>
+                                                                    <constraint firstItem="Mmt-bd-ycG" firstAttribute="leading" secondItem="ur2-lZ-A3o" secondAttribute="leading" id="lsu-Iw-N55"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="Mmt-bd-ycG" secondAttribute="trailing" id="tnm-v1-roz"/>
+                                                                </constraints>
                                                             </stackView>
                                                         </subviews>
                                                     </stackView>

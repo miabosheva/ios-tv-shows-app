@@ -26,7 +26,7 @@ final class LoginViewController : UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         let placeholderAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.7),
+            NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0),
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17)
         ]
         
