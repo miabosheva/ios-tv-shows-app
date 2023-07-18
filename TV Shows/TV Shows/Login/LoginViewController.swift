@@ -13,15 +13,10 @@ final class LoginViewController : UIViewController {
     // MARK: - Outlets
     
     @IBOutlet weak var emailTextField: UITextField!
-    
     @IBOutlet weak var passwordTextField: UITextField!
-    
     @IBOutlet weak var rememberMeButton: UIButton!
-    
     @IBOutlet weak var visibilityButton: UIButton!
-    
     @IBOutlet weak var loginButton: UIButton!
-    
     @IBOutlet weak var registerButton: UIButton!
     
     // MARK: - Lifecycle methods
