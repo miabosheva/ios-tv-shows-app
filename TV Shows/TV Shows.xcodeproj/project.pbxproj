@@ -15,7 +15,6 @@
 		420E328C2A5CA7E000C44A4A /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 420E328B2A5CA7E000C44A4A /* Login.storyboard */; };
 		420E328E2A5CA7F600C44A4A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420E328D2A5CA7F600C44A4A /* LoginViewController.swift */; };
 		4259097D2A620C2900882A33 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4259097C2A620C2900882A33 /* User.swift */; };
-		42A453D62A606C7B003F5067 /* LoginExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A453D52A606C7B003F5067 /* LoginExtensions.swift */; };
 		42A453DB2A61F1DD003F5067 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A453DA2A61F1DD003F5067 /* HomeViewController.swift */; };
 		42A453DD2A61F1E7003F5067 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42A453DC2A61F1E7003F5067 /* Home.storyboard */; };
 		83EC6941B50886D95719476C /* Pods_TV_Shows.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F14708C75C2F2233D76F5B1 /* Pods_TV_Shows.framework */; };
@@ -33,7 +32,6 @@
 		420E328B2A5CA7E000C44A4A /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		420E328D2A5CA7F600C44A4A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4259097C2A620C2900882A33 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		42A453D52A606C7B003F5067 /* LoginExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginExtensions.swift; sourceTree = "<group>"; };
 		42A453DA2A61F1DD003F5067 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		42A453DC2A61F1E7003F5067 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		8F14708C75C2F2233D76F5B1 /* Pods_TV_Shows.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TV_Shows.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,7 +88,6 @@
 			children = (
 				420E328B2A5CA7E000C44A4A /* Login.storyboard */,
 				420E328D2A5CA7F600C44A4A /* LoginViewController.swift */,
-				42A453D52A606C7B003F5067 /* LoginExtensions.swift */,
 				4259097C2A620C2900882A33 /* User.swift */,
 			);
 			path = Login;
@@ -241,7 +238,6 @@
 				420E328E2A5CA7F600C44A4A /* LoginViewController.swift in Sources */,
 				420E32792A587E8800C44A4A /* ViewController.swift in Sources */,
 				420E32752A587E8800C44A4A /* AppDelegate.swift in Sources */,
-				42A453D62A606C7B003F5067 /* LoginExtensions.swift in Sources */,
 				420E32772A587E8800C44A4A /* SceneDelegate.swift in Sources */,
 				42A453DB2A61F1DD003F5067 /* HomeViewController.swift in Sources */,
 				4259097D2A620C2900882A33 /* User.swift in Sources */,
