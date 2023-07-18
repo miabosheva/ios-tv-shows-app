@@ -12,6 +12,7 @@ import Alamofire
 final class LoginViewController : UIViewController {
     
     // MARK: - Outlets
+    
     @IBOutlet weak var emailTextField: UITextField!
     
     @IBOutlet weak var passwordTextField: UITextField!
@@ -38,6 +39,7 @@ final class LoginViewController : UIViewController {
     }
     
     // MARK: - Actions
+    
     @IBAction func rememberMeButtonTap() {
         
         rememberMeButton.tintColor = UIColor.white
