@@ -20,6 +20,10 @@ final class LoginViewController : UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var registerButton: UIButton!
     
+    // MARK: -Properties
+    
+    private var userResponse: UserResponse!
+    
     // MARK: - Lifecycle methods
     
     override func viewDidLoad() {
@@ -93,6 +97,11 @@ final class LoginViewController : UIViewController {
         registerButton.setTitleColor(UIColor.white.withAlphaComponent(0.7), for: .disabled)
     }
     
+    private func parseUserResponse(user : UserResponse) throws {
+        let data = try JSONSerialization.data(withJSONObject: user, options: .prettyPrinted)
+        userResponse = try JSONDecoder().decode(UserResponse.self, from: data)
+    }
+    
     // MARK: - Actions
     
     @IBAction func loginButtonPressed() {
@@ -101,9 +110,10 @@ final class LoginViewController : UIViewController {
         
         loginUserWith(email: email, password: password)
     }
+    
     @IBAction func registerButtonPressed() {
-        guard let email = emailTextField.text else { return }
-        guard let password = passwordTextField.text else { return }
+        guard let email = emailTextField.text, !email.isEmpty else { return }
+        guard let password = passwordTextField.text, !password.isEmpty else { return }
         
         registerUserWith(email: email, password: password)
     }
@@ -149,6 +159,7 @@ private extension LoginViewController {
                 switch dataResponse.result {
                 case .success(let user):
                     print("Success: \(user)")
+                    userResponse = user
                     navigateToHomeController()
                 case .failure(let error):
                     print("API/Serialization failure: \(error)")
@@ -182,13 +193,12 @@ private extension LoginViewController {
                 guard let self = self else { return }
                 MBProgressHUD.hide(for: self.view, animated: true)
                 switch dataResponse.result {
-                case .success(let userResponse):
+                case .success(let rawUserResponse):
                     let headers = dataResponse.response?.headers.dictionary ?? [:]
-                    self.handleSuccesfulLogin(for: userResponse.user, headers: headers)
-                    print("Successful login.")
+                    self.handleSuccesfulLogin(for: rawUserResponse.user, headers: headers)
+                    userResponse = rawUserResponse
                     navigateToHomeController()
                 case .failure(let error):
-                    //print("API/Serialization failure: \(error)")
                     print("Login failure error: \(error.localizedDescription).")
                 }
             }
