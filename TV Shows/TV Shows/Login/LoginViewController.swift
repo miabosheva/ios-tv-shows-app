@@ -133,7 +133,6 @@ private extension LoginViewController {
             
         let homeController = storyboard.instantiateViewController(withIdentifier: "homeController") as! HomeViewController
             
-        navigationController?.pushViewController(homeController, animated: true)
         navigationController?.setViewControllers([homeController], animated: true)
         
         homeController.authInfo = self.authInfo

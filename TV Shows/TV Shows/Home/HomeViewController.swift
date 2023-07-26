@@ -22,12 +22,25 @@ final class HomeViewController : UIViewController {
     var authInfo: AuthInfo?
     var userResponse: UserResponse?
     var shows: [Show] = []
+    var currentPage = 1
+    var totalPages = 3
     
     // MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
+        
+//        let refreshControl = UIRefreshControl()
+//        refreshControl.addTarget(self, action: #selector(listShows), for: .valueChanged)
+//        tableView.refreshControl = refreshControl
+    }
+    
+    // MARK: - Helper Methods
+    
+    func loadData(){
+        listShows()
+        currentPage += 1
     }
 }
 
@@ -35,7 +48,7 @@ final class HomeViewController : UIViewController {
 
 private extension HomeViewController {
     
-    func listShows(){
+    @objc func listShows(){
         
         guard let authInfo = authInfo else { return }
         
@@ -43,7 +56,7 @@ private extension HomeViewController {
           .request(
               "https://tv-shows.infinum.academy/shows",
               method: .get,
-              parameters: ["page": "1", "items": "100"], // pagination arguments
+              parameters: ["page": currentPage, "items": "20"], // pagination arguments
               headers: HTTPHeaders(authInfo.headers)
           )
           .validate()
@@ -52,8 +65,9 @@ private extension HomeViewController {
               MBProgressHUD.hide(for: self.view, animated: true)
               switch dataResponse.result {
               case .success(let showsResponse):
-                  print(showsResponse)
-                  self.shows = showsResponse.shows
+                  //totalPages = showsResponse.meta.pages
+                  //currentPage = showsResponse.meta.page
+                  self.shows.append(contentsOf: showsResponse.shows)
                   tableView.reloadData()
               case .failure(let error):
                   print(error)
@@ -82,7 +96,7 @@ extension HomeViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+        
         print("CURRENT INDEX PATH BEING CONFIGURED: \(indexPath)")
 
         let cell = tableView.dequeueReusableCell(
@@ -91,9 +105,16 @@ extension HomeViewController: UITableViewDataSource {
         ) as! TVShowTableViewCell
 
         cell.configure(with: shows[indexPath.row])
-
+        
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == shows.count - 1, currentPage < totalPages {
+            loadData()
+        }
+    }
+    
 }
 
 // MARK: - Private
