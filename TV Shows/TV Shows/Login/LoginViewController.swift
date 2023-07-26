@@ -23,6 +23,7 @@ final class LoginViewController : UIViewController {
     // MARK: - Properties
     
     private var userResponse: UserResponse!
+    private var authInfo: AuthInfo!
     
     // MARK: - Lifecycle methods
     
@@ -97,6 +98,15 @@ final class LoginViewController : UIViewController {
         registerButton.setTitleColor(UIColor.white.withAlphaComponent(0.7), for: .disabled)
     }
     
+    private func showAlert(){
+        let alertController = UIAlertController(title: "Login failed", message: "Credentials are not valid.", preferredStyle: .alert)
+
+        let OKAction = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(OKAction)
+
+        self.present(alertController, animated: true)
+    }
+    
     // MARK: - Actions
     
     @IBAction func loginButtonPressed() {
@@ -124,6 +134,9 @@ private extension LoginViewController {
         let homeController = storyboard.instantiateViewController(withIdentifier: "homeController")
             
         navigationController?.pushViewController(homeController, animated: true)
+        
+        //homeController.authInfo = self.authInfo
+        //homeController.userResponse = self.userResponse
     }
 }
 
@@ -153,11 +166,13 @@ private extension LoginViewController {
                 MBProgressHUD.hide(for: self.view, animated: true)
                 switch dataResponse.result {
                 case .success(let user):
-                    print("Success: \(user)")
+                    let headers = dataResponse.response?.headers.dictionary ?? [:]
+                    self.handleSuccesfulLogin(for: user.user, headers: headers)
                     userResponse = user
                     navigateToHomeController()
                 case .failure(let error):
                     print("API/Serialization failure: \(error)")
+                    showAlert()
                 }
             }
     }
@@ -195,6 +210,7 @@ private extension LoginViewController {
                     navigateToHomeController()
                 case .failure(let error):
                     print("Login failure error: \(error.localizedDescription).")
+                    showAlert()
                 }
             }
     }
@@ -206,6 +222,7 @@ private extension LoginViewController {
             return
         }
         print("\(user)\n")
+        self.authInfo = authInfo
     }
 }
 
