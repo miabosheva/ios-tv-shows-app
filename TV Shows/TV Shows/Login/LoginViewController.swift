@@ -20,7 +20,7 @@ final class LoginViewController : UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var registerButton: UIButton!
     
-    // MARK: -Properties
+    // MARK: - Properties
     
     private var userResponse: UserResponse!
     
@@ -95,11 +95,6 @@ final class LoginViewController : UIViewController {
     private func setTitleColorLoginAndRegisterBtn(){
         loginButton.setTitleColor(UIColor.white.withAlphaComponent(0.7), for: .disabled)
         registerButton.setTitleColor(UIColor.white.withAlphaComponent(0.7), for: .disabled)
-    }
-    
-    private func parseUserResponse(user : UserResponse) throws {
-        let data = try JSONSerialization.data(withJSONObject: user, options: .prettyPrinted)
-        userResponse = try JSONDecoder().decode(UserResponse.self, from: data)
     }
     
     // MARK: - Actions
@@ -193,10 +188,10 @@ private extension LoginViewController {
                 guard let self = self else { return }
                 MBProgressHUD.hide(for: self.view, animated: true)
                 switch dataResponse.result {
-                case .success(let rawUserResponse):
+                case .success(let userResponse):
                     let headers = dataResponse.response?.headers.dictionary ?? [:]
-                    self.handleSuccesfulLogin(for: rawUserResponse.user, headers: headers)
-                    userResponse = rawUserResponse
+                    self.handleSuccesfulLogin(for: userResponse.user, headers: headers)
+                    self.userResponse = userResponse
                     navigateToHomeController()
                 case .failure(let error):
                     print("Login failure error: \(error.localizedDescription).")
