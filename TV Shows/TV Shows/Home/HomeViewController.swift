@@ -23,7 +23,7 @@ final class HomeViewController : UIViewController {
     var userResponse: UserResponse?
     var shows: [Show] = []
     var currentPage = 1
-    var totalPages = 3
+    var totalPages = 0
     
     // MARK: - Lifecycle Methods
     
@@ -61,8 +61,8 @@ private extension HomeViewController {
               MBProgressHUD.hide(for: self.view, animated: true)
               switch dataResponse.result {
               case .success(let showsResponse):
-                  //totalPages = showsResponse.meta.pages
-                  //currentPage = showsResponse.meta.page
+                  totalPages = showsResponse.meta.pagination.pages
+                  currentPage = showsResponse.meta.pagination.page
                   self.shows.append(contentsOf: showsResponse.shows)
                   tableView.reloadData()
               case .failure(let error):

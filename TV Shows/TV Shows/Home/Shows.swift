@@ -27,13 +27,16 @@ struct Show: Decodable {
 
 struct ShowsResponse: Decodable {
     let shows: [Show]
-    
-    //let meta: Pagination
+    let meta: Meta
 }
 
-//struct Pagination: Decodable {
-//    var count: Int
-//    var page: Int
-//    var items: Int
-//    var pages: Int
-//}
+struct Meta: Decodable {
+    let pagination: Pagination
+}
+
+struct Pagination: Decodable {
+    var count: Int
+    var page: Int
+    var items: Int
+    var pages: Int
+}
