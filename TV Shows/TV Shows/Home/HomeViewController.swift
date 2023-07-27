@@ -61,8 +61,6 @@ private extension HomeViewController {
               MBProgressHUD.hide(for: self.view, animated: true)
               switch dataResponse.result {
               case .success(let showsResponse):
-                  //totalPages = showsResponse.meta.pages
-                  //currentPage = showsResponse.meta.page
                   self.shows.append(contentsOf: showsResponse.shows)
                   tableView.reloadData()
               case .failure(let error):
@@ -117,7 +115,6 @@ extension HomeViewController: UITableViewDataSource {
             loadData()
         }
     }
-    
 }
 
 // MARK: - Private
@@ -127,9 +124,7 @@ private extension HomeViewController {
     func setupTableView() {
         tableView.estimatedRowHeight = 110
         tableView.rowHeight = UITableView.automaticDimension
-
         tableView.tableFooterView = UIView()
-
         tableView.delegate = self
         tableView.dataSource = self
         

@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Alamofire
 
 final class DetailsViewController : UIViewController {
     
@@ -18,6 +19,7 @@ final class DetailsViewController : UIViewController {
     var showId = 0
     var authInfo: AuthInfo?
     var show: Show?
+    var reviews: [Review]?
     
     // MARK: - Lifecycle methods
     
@@ -26,38 +28,85 @@ final class DetailsViewController : UIViewController {
         loadShowDetails()
     }
     
+    // MARK: - Helper Methods
+    
+    func listReviews(){
+        guard let authInfo = authInfo else { return }
+
+        AF
+          .request(
+              "https://tv-shows.infinum.academy/shows/\(showId)/reviews",
+              method: .get,
+              headers: HTTPHeaders(authInfo.headers)
+          )
+          .validate()
+          .responseDecodable(of: ReviewResponse.self) { [weak self] dataResponse in
+              guard let self = self else { return }
+              switch dataResponse.result {
+              case .success(let review):
+                  print(review.reviews)
+                  self.reviews = review.reviews
+                  tableView.reloadData()
+              case .failure(let error):
+                  print(error.localizedDescription)
+              }
+          }
+    }
+    
 }
 
 extension DetailsViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
 
     // MARK: - UITableViewDataSource
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        if section == 0 {
+            return 1
+        }
+        else {
+            guard let reviews = reviews else { return 0 }
+            return reviews.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+         
+        if indexPath.section == 0 {
+            let showCell = tableView.dequeueReusableCell(
+                withIdentifier: String(describing: DetailsShowTableViewCell.self),
+                for: indexPath
+            ) as! DetailsShowTableViewCell
 
-        let cell = tableView.dequeueReusableCell(
-            withIdentifier: String(describing: DetailsShowTableViewCell.self),
-            for: indexPath
-        ) as! DetailsShowTableViewCell
-
-        guard let show = show else { return UITableViewCell()}
-        cell.configure(with: show)
-        
-        return cell
+            guard let show = show else { return UITableViewCell()}
+            showCell.configure(with: show)
+            
+            return showCell
+        }
+        else {
+            let reviewCell = tableView.dequeueReusableCell(withIdentifier: String(describing: ReviewTableViewCell.self),
+                for: indexPath
+            ) as! ReviewTableViewCell
+            
+            guard let reviews = reviews else { return UITableViewCell()}
+            reviewCell.configure(with: reviews[indexPath.row - 1])
+            
+            return reviewCell
+        }
     }
-
 }
 
 private extension DetailsViewController {
     func loadShowDetails(){
         tableView.estimatedRowHeight = 1000
         tableView.rowHeight = UITableView.automaticDimension
-
         tableView.tableFooterView = UIView()
         tableView.dataSource = self
-        
         titleLabel.text = show?.title
+        
+        listReviews()
     }
 }

@@ -13,20 +13,13 @@ final class DetailsShowTableViewCell: UITableViewCell {
     // MARK: - Private UI
 
     @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var showImage: UIImageView!
     
-    // MARK: - Lifecycle
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        setupUI()
-    }
-
+    // MARK: - Lifecycle Methods
+    
     override func prepareForReuse() {
         super.prepareForReuse()
-        showImage.image = nil
         descriptionLabel.text = nil
     }
-
 }
 
 // MARK: - Configure
@@ -34,20 +27,6 @@ final class DetailsShowTableViewCell: UITableViewCell {
 extension DetailsShowTableViewCell {
 
     func configure(with item: Show) {
-        
-//        print(showImage.image as Any)
         descriptionLabel.text = item.description ?? "No text"
-        print(descriptionLabel.text as Any)
     }
 }
-
-// MARK: - Private
-
-private extension DetailsShowTableViewCell {
-
-    func setupUI() {
-//        showImage.layer.cornerRadius = 5
-//        showImage.layer.masksToBounds = true
-    }
-}
-

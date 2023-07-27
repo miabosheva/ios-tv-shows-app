@@ -12,46 +12,22 @@ final class ReviewTableViewCell : UITableViewCell {
     
     // MARK: - Private UI
 
-    @IBOutlet weak var showImage: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var reviewLabel: UILabel!
     
-    // MARK: - Lifecycle
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        setupUI()
-    }
-
+    // MARK: - Lifecycle Methods
+    
     override func prepareForReuse() {
         super.prepareForReuse()
-        showImage.image = nil
-        titleLabel.text = nil
+        reviewLabel.text = nil
     }
-
 }
 
 // MARK: - Configure
 
 extension ReviewTableViewCell {
 
-    func configure(with item: Show) {
-        let url = URL(string: item.imageUrl)
-            if let data = try? Data(contentsOf: url!)
-            {
-                let image: UIImage = UIImage(data: data) ?? UIImage(named: "icImagePlaceholder")!
-                showImage.image = image
-            }
-        titleLabel.text = item.title
+    func configure(with item: Review) {
+        reviewLabel.text = item.comment
     }
 }
-
-// MARK: - Private
-
-private extension ReviewTableViewCell {
-
-    func setupUI() {
-        showImage.layer.cornerRadius = 5
-        showImage.layer.masksToBounds = true
-    }
-}
-
 
