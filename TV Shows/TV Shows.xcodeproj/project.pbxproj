@@ -16,6 +16,8 @@
 		420E328E2A5CA7F600C44A4A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420E328D2A5CA7F600C44A4A /* LoginViewController.swift */; };
 		4256D0AA2A712C6B00F0E90C /* Shows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4256D0A92A712C6B00F0E90C /* Shows.swift */; };
 		4256D0AD2A71447400F0E90C /* TVShowsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4256D0AC2A71447400F0E90C /* TVShowsTableViewCell.swift */; };
+		4256D0B02A7296AB00F0E90C /* Details.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4256D0AF2A7296AB00F0E90C /* Details.storyboard */; };
+		4256D0B32A7296D800F0E90C /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4256D0B22A7296D800F0E90C /* DetailsViewController.swift */; };
 		4259097D2A620C2900882A33 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4259097C2A620C2900882A33 /* User.swift */; };
 		42A453DB2A61F1DD003F5067 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A453DA2A61F1DD003F5067 /* HomeViewController.swift */; };
 		42A453DD2A61F1E7003F5067 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42A453DC2A61F1E7003F5067 /* Home.storyboard */; };
@@ -35,6 +37,8 @@
 		420E328D2A5CA7F600C44A4A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4256D0A92A712C6B00F0E90C /* Shows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shows.swift; sourceTree = "<group>"; };
 		4256D0AC2A71447400F0E90C /* TVShowsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowsTableViewCell.swift; sourceTree = "<group>"; };
+		4256D0AF2A7296AB00F0E90C /* Details.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Details.storyboard; sourceTree = "<group>"; };
+		4256D0B22A7296D800F0E90C /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		4259097C2A620C2900882A33 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		42A453DA2A61F1DD003F5067 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		42A453DC2A61F1E7003F5067 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
@@ -75,6 +79,7 @@
 		420E32732A587E8800C44A4A /* TV Shows */ = {
 			isa = PBXGroup;
 			children = (
+				4256D0AE2A72969C00F0E90C /* Details */,
 				42A453D72A61F1A1003F5067 /* Home */,
 				420E32882A5CA78A00C44A4A /* Login */,
 				420E32742A587E8800C44A4A /* AppDelegate.swift */,
@@ -103,6 +108,15 @@
 				4256D0AC2A71447400F0E90C /* TVShowsTableViewCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		4256D0AE2A72969C00F0E90C /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				4256D0AF2A7296AB00F0E90C /* Details.storyboard */,
+				4256D0B22A7296D800F0E90C /* DetailsViewController.swift */,
+			);
+			path = Details;
 			sourceTree = "<group>";
 		};
 		42A453D72A61F1A1003F5067 /* Home */ = {
@@ -193,6 +207,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4256D0B02A7296AB00F0E90C /* Details.storyboard in Resources */,
 				420E32812A587E8900C44A4A /* LaunchScreen.storyboard in Resources */,
 				420E327E2A587E8900C44A4A /* Assets.xcassets in Resources */,
 				420E328C2A5CA7E000C44A4A /* Login.storyboard in Resources */,
@@ -251,6 +266,7 @@
 			files = (
 				420E328E2A5CA7F600C44A4A /* LoginViewController.swift in Sources */,
 				420E32792A587E8800C44A4A /* ViewController.swift in Sources */,
+				4256D0B32A7296D800F0E90C /* DetailsViewController.swift in Sources */,
 				4256D0AA2A712C6B00F0E90C /* Shows.swift in Sources */,
 				420E32752A587E8800C44A4A /* AppDelegate.swift in Sources */,
 				420E32772A587E8800C44A4A /* SceneDelegate.swift in Sources */,
