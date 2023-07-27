@@ -28,6 +28,18 @@ final class DetailsViewController : UIViewController {
         loadShowDetails()
     }
     
+    
+    
+    // MARK: - Actions
+    @IBAction func addAReviewButtonTap() {
+        let storyboard = UIStoryboard(name: "WriteReview", bundle: nil)
+                
+        let writeReviewController = storyboard.instantiateViewController(withIdentifier: "writeReviewController") as! WriteReviewController
+        
+        let navigationController = UINavigationController(rootViewController: writeReviewController)
+         present(navigationController, animated: true)
+    }
+    
     // MARK: - Helper Methods
     
     func listReviews(){

@@ -22,6 +22,8 @@
 		4256D0B82A72A48F00F0E90C /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4256D0B72A72A48F00F0E90C /* ReviewTableViewCell.swift */; };
 		4259097D2A620C2900882A33 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4259097C2A620C2900882A33 /* User.swift */; };
 		429C1ECE2A7321A00046E293 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429C1ECD2A7321A00046E293 /* Review.swift */; };
+		429C1ED02A732F4F0046E293 /* WriteReviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429C1ECF2A732F4F0046E293 /* WriteReviewController.swift */; };
+		429C1ED32A732FEF0046E293 /* WriteReview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 429C1ED22A732FEF0046E293 /* WriteReview.storyboard */; };
 		42A453DB2A61F1DD003F5067 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A453DA2A61F1DD003F5067 /* HomeViewController.swift */; };
 		42A453DD2A61F1E7003F5067 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42A453DC2A61F1E7003F5067 /* Home.storyboard */; };
 		83EC6941B50886D95719476C /* Pods_TV_Shows.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F14708C75C2F2233D76F5B1 /* Pods_TV_Shows.framework */; };
@@ -46,6 +48,8 @@
 		4256D0B72A72A48F00F0E90C /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
 		4259097C2A620C2900882A33 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		429C1ECD2A7321A00046E293 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
+		429C1ECF2A732F4F0046E293 /* WriteReviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteReviewController.swift; sourceTree = "<group>"; };
+		429C1ED22A732FEF0046E293 /* WriteReview.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WriteReview.storyboard; sourceTree = "<group>"; };
 		42A453DA2A61F1DD003F5067 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		42A453DC2A61F1E7003F5067 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		8F14708C75C2F2233D76F5B1 /* Pods_TV_Shows.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TV_Shows.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -119,9 +123,9 @@
 		4256D0AE2A72969C00F0E90C /* Details */ = {
 			isa = PBXGroup;
 			children = (
+				429C1ED42A7330240046E293 /* Show Details */,
+				429C1ED12A732FD60046E293 /* Write Review */,
 				4256D0B42A72A42000F0E90C /* Cells */,
-				4256D0AF2A7296AB00F0E90C /* Details.storyboard */,
-				4256D0B22A7296D800F0E90C /* DetailsViewController.swift */,
 				429C1ECD2A7321A00046E293 /* Review.swift */,
 			);
 			path = Details;
@@ -134,6 +138,24 @@
 				4256D0B72A72A48F00F0E90C /* ReviewTableViewCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		429C1ED12A732FD60046E293 /* Write Review */ = {
+			isa = PBXGroup;
+			children = (
+				429C1ECF2A732F4F0046E293 /* WriteReviewController.swift */,
+				429C1ED22A732FEF0046E293 /* WriteReview.storyboard */,
+			);
+			path = "Write Review";
+			sourceTree = "<group>";
+		};
+		429C1ED42A7330240046E293 /* Show Details */ = {
+			isa = PBXGroup;
+			children = (
+				4256D0AF2A7296AB00F0E90C /* Details.storyboard */,
+				4256D0B22A7296D800F0E90C /* DetailsViewController.swift */,
+			);
+			path = "Show Details";
 			sourceTree = "<group>";
 		};
 		42A453D72A61F1A1003F5067 /* Home */ = {
@@ -224,6 +246,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				429C1ED32A732FEF0046E293 /* WriteReview.storyboard in Resources */,
 				4256D0B02A7296AB00F0E90C /* Details.storyboard in Resources */,
 				420E32812A587E8900C44A4A /* LaunchScreen.storyboard in Resources */,
 				420E327E2A587E8900C44A4A /* Assets.xcassets in Resources */,
@@ -287,6 +310,7 @@
 				4256D0B62A72A45400F0E90C /* DetailsShowTableViewCell.swift in Sources */,
 				4256D0AA2A712C6B00F0E90C /* Shows.swift in Sources */,
 				429C1ECE2A7321A00046E293 /* Review.swift in Sources */,
+				429C1ED02A732F4F0046E293 /* WriteReviewController.swift in Sources */,
 				420E32752A587E8800C44A4A /* AppDelegate.swift in Sources */,
 				4256D0B82A72A48F00F0E90C /* ReviewTableViewCell.swift in Sources */,
 				420E32772A587E8800C44A4A /* SceneDelegate.swift in Sources */,
