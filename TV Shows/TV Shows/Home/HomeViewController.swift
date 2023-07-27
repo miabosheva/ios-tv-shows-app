@@ -30,10 +30,6 @@ final class HomeViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-        
-//        let refreshControl = UIRefreshControl()
-//        refreshControl.addTarget(self, action: #selector(listShows), for: .valueChanged)
-//        tableView.refreshControl = refreshControl
     }
     
     // MARK: - Helper Methods
