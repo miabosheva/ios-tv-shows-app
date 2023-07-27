@@ -92,8 +92,6 @@ extension HomeViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        print("CURRENT INDEX PATH BEING CONFIGURED: \(indexPath)")
 
         let cell = tableView.dequeueReusableCell(
             withIdentifier: String(describing: TVShowTableViewCell.self),
