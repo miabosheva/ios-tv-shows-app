@@ -127,7 +127,8 @@ private extension RatingView {
 
     func setRating(_ rating: Int) {
         for i in 0...4 {
-            if i <= rating {
+            let bound = rating - 1
+            if i <= bound {
                 ratingButtons[i].isSelected = true
             }
             else{

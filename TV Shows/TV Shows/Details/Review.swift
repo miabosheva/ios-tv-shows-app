@@ -18,3 +18,7 @@ struct Review : Decodable {
     var show_id: Int
     var user: User
 }
+
+struct ReviewSubmitResponse : Decodable {
+    var review: Review
+}
