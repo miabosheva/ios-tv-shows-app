@@ -23,6 +23,7 @@ final class LoginViewController : UIViewController {
     // MARK: - Properties
     
     private var userResponse: UserResponse!
+    private var authInfo: AuthInfo!
     
     // MARK: - Lifecycle methods
     
@@ -59,44 +60,6 @@ final class LoginViewController : UIViewController {
         checkIfTextFieldsAreEmpty()
     }
     
-    // MARK: - Helper Methods
-    
-    private func checkIfTextFieldsAreEmpty(){
-        if emailTextField.text == "" || passwordTextField.text == ""{
-            setButtonsAsDisabled()
-        } else {
-            setButtonsAsEnabled()
-        }
-    }
-    
-    private func setButtonsAsDisabled(){
-        loginButton.alpha = 0.5
-        loginButton.isEnabled = false
-        registerButton.isEnabled = false
-    }
-    
-    private func setButtonsAsEnabled(){
-        loginButton.alpha = 1.0
-        loginButton.isEnabled = true
-        registerButton.isEnabled = true
-    }
-    
-    private func setAtttributedPlacehordersEmailAndPassword(){
-        
-        let placeholderAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.7),
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17)
-        ]
-        
-        emailTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: placeholderAttributes)
-        passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: placeholderAttributes)
-    }
-    
-    private func setTitleColorLoginAndRegisterBtn(){
-        loginButton.setTitleColor(UIColor.white.withAlphaComponent(0.7), for: .disabled)
-        registerButton.setTitleColor(UIColor.white.withAlphaComponent(0.7), for: .disabled)
-    }
-    
     // MARK: - Actions
     
     @IBAction func loginButtonPressed() {
@@ -121,9 +84,12 @@ private extension LoginViewController {
     private func navigateToHomeController() {
         let storyboard = UIStoryboard(name: "Home", bundle: nil)
             
-        let homeController = storyboard.instantiateViewController(withIdentifier: "homeController")
+        let homeController = storyboard.instantiateViewController(withIdentifier: "homeController") as! HomeViewController
             
-        navigationController?.pushViewController(homeController, animated: true)
+        navigationController?.setViewControllers([homeController], animated: true)
+        
+        homeController.authInfo = self.authInfo
+        homeController.userResponse = self.userResponse
     }
 }
 
@@ -153,11 +119,13 @@ private extension LoginViewController {
                 MBProgressHUD.hide(for: self.view, animated: true)
                 switch dataResponse.result {
                 case .success(let user):
-                    print("Success: \(user)")
+                    let headers = dataResponse.response?.headers.dictionary ?? [:]
+                    self.handleSuccesfulLogin(for: user.user, headers: headers)
                     userResponse = user
                     navigateToHomeController()
                 case .failure(let error):
                     print("API/Serialization failure: \(error)")
+                    showAlert()
                 }
             }
     }
@@ -195,17 +163,65 @@ private extension LoginViewController {
                     navigateToHomeController()
                 case .failure(let error):
                     print("Login failure error: \(error.localizedDescription).")
+                    showAlert()
                 }
             }
     }
 
-    // Headers will be used for subsequent authorization on next requests
     func handleSuccesfulLogin(for user: User, headers: [String: String]) {
         guard let authInfo = try? AuthInfo(headers: headers) else {
             print("Missing headers")
             return
         }
-        print("\(user)\n")
+        self.authInfo = authInfo
     }
 }
 
+// MARK: - Helper Methods
+
+private extension LoginViewController {
+    func checkIfTextFieldsAreEmpty(){
+        if emailTextField.text == "" || passwordTextField.text == ""{
+            setButtonsAsDisabled()
+        } else {
+            setButtonsAsEnabled()
+        }
+    }
+    
+    func setButtonsAsDisabled(){
+        loginButton.alpha = 0.5
+        loginButton.isEnabled = false
+        registerButton.isEnabled = false
+    }
+    
+    func setButtonsAsEnabled(){
+        loginButton.alpha = 1.0
+        loginButton.isEnabled = true
+        registerButton.isEnabled = true
+    }
+    
+    func setAtttributedPlacehordersEmailAndPassword(){
+        
+        let placeholderAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.7),
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17)
+        ]
+        
+        emailTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: placeholderAttributes)
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: placeholderAttributes)
+    }
+    
+    func setTitleColorLoginAndRegisterBtn(){
+        loginButton.setTitleColor(UIColor.white.withAlphaComponent(0.7), for: .disabled)
+        registerButton.setTitleColor(UIColor.white.withAlphaComponent(0.7), for: .disabled)
+    }
+    
+    func showAlert(){
+        let alertController = UIAlertController(title: "Login failed", message: "Credentials are not valid.", preferredStyle: .alert)
+
+        let OKAction = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(OKAction)
+
+        self.present(alertController, animated: true)
+    }
+}
