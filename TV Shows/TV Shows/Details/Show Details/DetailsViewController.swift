@@ -16,7 +16,6 @@ final class DetailsViewController : UIViewController {
     
     // MARK: - Properites
     
-    var showId = 0
     var authInfo: AuthInfo?
     var show: Show?
     var reviews: [Review]?
@@ -43,11 +42,12 @@ final class DetailsViewController : UIViewController {
     // MARK: - Helper Methods
     
     func listReviews(){
-        guard let authInfo = authInfo else { return }
+        guard let authInfo = authInfo,
+        let show = show else { return }
 
         AF
           .request(
-              "https://tv-shows.infinum.academy/shows/\(showId)/reviews",
+            "https://tv-shows.infinum.academy/shows/\(show.id)/reviews",
               method: .get,
               headers: HTTPHeaders(authInfo.headers)
           )
@@ -104,7 +104,7 @@ extension DetailsViewController: UITableViewDataSource {
             ) as! ReviewTableViewCell
             
             guard let reviews = reviews else { return UITableViewCell()}
-            reviewCell.configure(with: reviews[indexPath.row - 1])
+            reviewCell.configure(with: reviews[indexPath.row])
             
             return reviewCell
         }

@@ -12,7 +12,7 @@ struct ReviewResponse : Decodable {
 }
 
 struct Review : Decodable {
-    var id: Int
+    var id: String
     var comment: String
     var rating: Int
     var show_id: Int

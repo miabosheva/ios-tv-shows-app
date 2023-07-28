@@ -84,7 +84,6 @@ extension HomeViewController: UITableViewDelegate {
                 
         navigationController?.pushViewController(detailsController, animated: true)
             
-        detailsController.showId = indexPath.row
         detailsController.authInfo = authInfo
         detailsController.show = shows[indexPath.row]
     }
