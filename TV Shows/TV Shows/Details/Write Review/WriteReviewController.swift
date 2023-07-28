@@ -10,6 +10,13 @@ import UIKit
 
 final class WriteReviewController: UIViewController {
     
+    // MARK: - Properties
+    
+    var authInfo: AuthInfo?
+    var show: Show?
+
+    // MARK: - Lifecycle Methods
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Write a Review"
@@ -20,7 +27,13 @@ final class WriteReviewController: UIViewController {
         self.navigationItem.leftBarButtonItem = backButton;
         super.viewWillAppear(animated);
     }
+    
+}
 
+private extension WriteReviewController {
+    
+    // MARK: - Helper Methods
+    
     @objc func close() {
         self.dismiss(animated: true, completion: nil)
     }

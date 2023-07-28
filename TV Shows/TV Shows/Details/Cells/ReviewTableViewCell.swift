@@ -11,13 +11,23 @@ import UIKit
 final class ReviewTableViewCell : UITableViewCell {
     
     // MARK: - Private UI
-
+    
+    @IBOutlet weak var ratingView: RatingView!
+    @IBOutlet weak var userThumbnail: UIImageView!
+    @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var reviewLabel: UILabel!
     
     // MARK: - Lifecycle Methods
     
+    override func awakeFromNib() {
+        ratingView.configure(withStyle: .small)
+        ratingView.isEnabled = false
+    }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
+        userThumbnail.image = nil
+        usernameLabel.text = nil
         reviewLabel.text = nil
     }
 }
@@ -27,7 +37,9 @@ final class ReviewTableViewCell : UITableViewCell {
 extension ReviewTableViewCell {
 
     func configure(with item: Review) {
+        usernameLabel.text = item.user.email
         reviewLabel.text = item.comment
+        ratingView.setRoundedRating(Double(item.rating))
     }
 }
 

@@ -33,6 +33,9 @@ final class DetailsViewController : UIViewController {
                 
         let writeReviewController = storyboard.instantiateViewController(withIdentifier: "writeReviewController") as! WriteReviewController
         
+        writeReviewController.authInfo = self.authInfo
+        writeReviewController.show = self.show
+        
         let navigationController = UINavigationController(rootViewController: writeReviewController)
         present(navigationController, animated: true)
     }
@@ -115,8 +118,9 @@ private extension DetailsViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = UIView()
         tableView.dataSource = self
-        titleLabel.text = show?.title
         
+        guard let show = show else { return }
+        titleLabel.text = show.title
         listReviews()
     }
 }
