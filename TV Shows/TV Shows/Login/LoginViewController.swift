@@ -60,53 +60,6 @@ final class LoginViewController : UIViewController {
         checkIfTextFieldsAreEmpty()
     }
     
-    // MARK: - Helper Methods
-    
-    private func checkIfTextFieldsAreEmpty(){
-        if emailTextField.text == "" || passwordTextField.text == ""{
-            setButtonsAsDisabled()
-        } else {
-            setButtonsAsEnabled()
-        }
-    }
-    
-    private func setButtonsAsDisabled(){
-        loginButton.alpha = 0.5
-        loginButton.isEnabled = false
-        registerButton.isEnabled = false
-    }
-    
-    private func setButtonsAsEnabled(){
-        loginButton.alpha = 1.0
-        loginButton.isEnabled = true
-        registerButton.isEnabled = true
-    }
-    
-    private func setAtttributedPlacehordersEmailAndPassword(){
-        
-        let placeholderAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.7),
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17)
-        ]
-        
-        emailTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: placeholderAttributes)
-        passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: placeholderAttributes)
-    }
-    
-    private func setTitleColorLoginAndRegisterBtn(){
-        loginButton.setTitleColor(UIColor.white.withAlphaComponent(0.7), for: .disabled)
-        registerButton.setTitleColor(UIColor.white.withAlphaComponent(0.7), for: .disabled)
-    }
-    
-    private func showAlert(){
-        let alertController = UIAlertController(title: "Login failed", message: "Credentials are not valid.", preferredStyle: .alert)
-
-        let OKAction = UIAlertAction(title: "OK", style: .default)
-        alertController.addAction(OKAction)
-
-        self.present(alertController, animated: true)
-    }
-    
     // MARK: - Actions
     
     @IBAction func loginButtonPressed() {
@@ -215,14 +168,60 @@ private extension LoginViewController {
             }
     }
 
-    // Headers will be used for subsequent authorization on next requests
     func handleSuccesfulLogin(for user: User, headers: [String: String]) {
         guard let authInfo = try? AuthInfo(headers: headers) else {
             print("Missing headers")
             return
         }
-        print("\(user)\n")
         self.authInfo = authInfo
     }
 }
 
+// MARK: - Helper Methods
+
+private extension LoginViewController {
+    func checkIfTextFieldsAreEmpty(){
+        if emailTextField.text == "" || passwordTextField.text == ""{
+            setButtonsAsDisabled()
+        } else {
+            setButtonsAsEnabled()
+        }
+    }
+    
+    func setButtonsAsDisabled(){
+        loginButton.alpha = 0.5
+        loginButton.isEnabled = false
+        registerButton.isEnabled = false
+    }
+    
+    func setButtonsAsEnabled(){
+        loginButton.alpha = 1.0
+        loginButton.isEnabled = true
+        registerButton.isEnabled = true
+    }
+    
+    func setAtttributedPlacehordersEmailAndPassword(){
+        
+        let placeholderAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.7),
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17)
+        ]
+        
+        emailTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: placeholderAttributes)
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: placeholderAttributes)
+    }
+    
+    func setTitleColorLoginAndRegisterBtn(){
+        loginButton.setTitleColor(UIColor.white.withAlphaComponent(0.7), for: .disabled)
+        registerButton.setTitleColor(UIColor.white.withAlphaComponent(0.7), for: .disabled)
+    }
+    
+    func showAlert(){
+        let alertController = UIAlertController(title: "Login failed", message: "Credentials are not valid.", preferredStyle: .alert)
+
+        let OKAction = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(OKAction)
+
+        self.present(alertController, animated: true)
+    }
+}
