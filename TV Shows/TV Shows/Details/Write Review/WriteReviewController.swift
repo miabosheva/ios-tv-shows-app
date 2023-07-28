@@ -10,6 +10,10 @@ import UIKit
 
 final class WriteReviewController: UIViewController {
     
+    // MARK: - Outlets
+    
+    @IBOutlet weak var textView: UITextView!
+    
     // MARK: - Properties
     
     var authInfo: AuthInfo?
@@ -20,6 +24,13 @@ final class WriteReviewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Write a Review"
+        textView.delegate = self
+        textView.text = "Enter your comment here..."
+        textView.textColor = UIColor.lightGray
+
+        textView.becomeFirstResponder()
+
+        textView.selectedTextRange = textView.textRange(from: textView.beginningOfDocument, to: textView.beginningOfDocument)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,5 +47,33 @@ private extension WriteReviewController {
     
     @objc func close() {
         self.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension WriteReviewController: UITextViewDelegate {
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+
+        
+        let currentText:String = textView.text
+        let updatedText = (currentText as NSString).replacingCharacters(in: range, with: text)
+
+        if updatedText.isEmpty {
+
+            textView.text = "Enter your comment here..."
+            textView.textColor = UIColor.lightGray
+
+            textView.selectedTextRange = textView.textRange(from: textView.beginningOfDocument, to: textView.beginningOfDocument)
+        }
+
+         else if textView.textColor == UIColor.lightGray && !text.isEmpty {
+            textView.textColor = UIColor.black
+            textView.text = text
+        }
+
+        else {
+            return true
+        }
+        return false
     }
 }
