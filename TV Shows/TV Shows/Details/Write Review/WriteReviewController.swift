@@ -16,6 +16,7 @@ final class WriteReviewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var ratingView: RatingView!
     @IBOutlet weak var submitButton: UIButton!
+    @IBOutlet weak var viewContainerForText: UIView!
     
     // MARK: - Properties
     
@@ -26,6 +27,9 @@ final class WriteReviewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        roundViewCorners()
+        
         self.title = "Write a Review"
         textView.delegate = self
         textView.text = "Enter your comment here..."
@@ -86,6 +90,10 @@ private extension WriteReviewController {
     @objc func close() {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    func roundViewCorners(){
+        viewContainerForText.layer.cornerRadius = 12
+    }
 }
 
 extension WriteReviewController: UITextViewDelegate {
@@ -102,22 +110,11 @@ extension WriteReviewController: UITextViewDelegate {
             textView.textColor = UIColor.lightGray
 
             textView.selectedTextRange = textView.textRange(from: textView.beginningOfDocument, to: textView.beginningOfDocument)
-            
-            submitButton.isEnabled = false
         }
-        
         else if textView.textColor == UIColor.lightGray && !text.isEmpty {
             textView.textColor = UIColor.black
             textView.text = text
         }
-        
-        if ratingView.rating > 0 && textView.textColor == .black && !textView.text.isEmpty {
-            submitButton.isEnabled = true
-        }
-        else if ratingView.rating == 0 {
-            submitButton.isEnabled = false
-        }
-
         else {
             return true
         }
