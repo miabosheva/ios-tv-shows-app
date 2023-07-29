@@ -128,9 +128,9 @@
 		4256D0AE2A72969C00F0E90C /* Details */ = {
 			isa = PBXGroup;
 			children = (
+				4256D0B42A72A42000F0E90C /* Cells */,
 				429C1ED42A7330240046E293 /* Show Details */,
 				429C1ED12A732FD60046E293 /* Write Review */,
-				4256D0B42A72A42000F0E90C /* Cells */,
 				429C1ECD2A7321A00046E293 /* Review.swift */,
 				429C1ED52A7406260046E293 /* RatingView.swift */,
 			);
