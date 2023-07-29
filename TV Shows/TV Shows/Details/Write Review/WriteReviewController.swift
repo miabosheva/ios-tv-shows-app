@@ -57,6 +57,8 @@ final class WriteReviewController: UIViewController {
             "show_id" : showid
         ]
         
+        animateSubmitButtonTap()
+        
         AF
           .request(
             "https://tv-shows.infinum.academy/reviews",
@@ -86,6 +88,24 @@ private extension WriteReviewController {
     @objc func close() {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    func animateSubmitButtonTap(){
+        let newTransform = CGAffineTransform(
+            scaleX: 0.9,
+            y: 0.9
+        )
+
+        UIView.animate(
+            withDuration: 0.1,
+            delay: 0,
+            options: [.curveEaseInOut, .autoreverse]) {
+
+                self.submitButton.transform = newTransform
+
+            } completion: { _ in
+                self.submitButton.transform = .identity
+            }
+    }
 }
 
 extension WriteReviewController: UITextViewDelegate {
@@ -102,20 +122,11 @@ extension WriteReviewController: UITextViewDelegate {
             textView.textColor = UIColor.lightGray
 
             textView.selectedTextRange = textView.textRange(from: textView.beginningOfDocument, to: textView.beginningOfDocument)
-            
-            submitButton.isEnabled = false
         }
         
         else if textView.textColor == UIColor.lightGray && !text.isEmpty {
             textView.textColor = UIColor.black
             textView.text = text
-        }
-        
-        if ratingView.rating > 0 && textView.textColor == .black && !textView.text.isEmpty {
-            submitButton.isEnabled = true
-        }
-        else if ratingView.rating == 0 {
-            submitButton.isEnabled = false
         }
 
         else {

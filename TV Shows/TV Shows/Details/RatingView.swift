@@ -127,8 +127,7 @@ private extension RatingView {
 
     func setRating(_ rating: Int) {
         for i in 0...4 {
-            let bound = rating - 1
-            if i <= bound {
+            if i < rating {
                 ratingButtons[i].isSelected = true
             }
             else{
@@ -141,7 +140,7 @@ private extension RatingView {
         var rating = 0
         for button in ratingButtons {
             if button.isSelected {
-                rating+=1
+                rating += 1
             }
         }
         return rating
@@ -159,7 +158,7 @@ private extension RatingView {
             return
         }
         // TODO: Enter the correct index for the rating
-        setRating(buttonIndex)
+        setRating(buttonIndex + 1)
         delegate?.didChangeRating(rating)
     }
 }
