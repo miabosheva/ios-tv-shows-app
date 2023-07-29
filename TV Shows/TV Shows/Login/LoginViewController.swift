@@ -172,6 +172,7 @@ private extension LoginViewController {
                     navigateToHomeController()
                 case .failure(let error):
                     print("API/Serialization failure: \(error)")
+                    loginButton.shake()
                     showAlert()
                 }
             }
@@ -210,6 +211,7 @@ private extension LoginViewController {
                     navigateToHomeController()
                 case .failure(let error):
                     print("Login failure error: \(error.localizedDescription).")
+                    loginButton.shake()
                     showAlert()
                 }
             }
