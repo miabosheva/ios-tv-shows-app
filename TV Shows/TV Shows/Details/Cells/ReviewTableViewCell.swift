@@ -22,6 +22,7 @@ final class ReviewTableViewCell : UITableViewCell {
     override func awakeFromNib() {
         ratingView.configure(withStyle: .small)
         ratingView.isEnabled = false
+        setupUI()
     }
     
     override func prepareForReuse() {
@@ -37,9 +38,25 @@ final class ReviewTableViewCell : UITableViewCell {
 extension ReviewTableViewCell {
 
     func configure(with item: Review) {
+        let url = item.user.imageUrl ?? ""
+        let imageUrl = URL(string: url)
+        
+        userThumbnail.kf.setImage(
+            with: imageUrl,
+            placeholder: UIImage(named: "ic-profile-placeholder"))
+        
         usernameLabel.text = item.user.email
         reviewLabel.text = item.comment
         ratingView.setRoundedRating(Double(item.rating))
     }
 }
 
+// MARK: - Private
+
+private extension ReviewTableViewCell {
+
+    func setupUI() {
+        userThumbnail.layer.cornerRadius = 10
+        userThumbnail.layer.masksToBounds = true
+    }
+}

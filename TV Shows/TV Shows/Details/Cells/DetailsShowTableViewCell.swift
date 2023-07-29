@@ -41,7 +41,7 @@ extension DetailsShowTableViewCell {
         let imageUrl = URL(string: item.imageUrl)
         showImage.kf.setImage(
             with: imageUrl,
-            placeholder: UIImage(named: "ic-show-placeholder-vertical"))
+            placeholder: UIImage(named: "ic-show-placeholder-rectangle"))
         
         descriptionLabel.text = item.description ?? "No text"
         

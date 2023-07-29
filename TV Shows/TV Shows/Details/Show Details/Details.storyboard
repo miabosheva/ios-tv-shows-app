@@ -116,20 +116,20 @@
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReviewTableViewCell" id="46d-ak-yWQ" customClass="ReviewTableViewCell" customModule="TV_Shows" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="655.33331298828125" width="393" height="116.33333587646484"/>
+                                                <rect key="frame" x="0.0" y="655.33331298828125" width="393" height="123.33333587646484"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="46d-ak-yWQ" id="Ueq-D1-itb">
-                                                    <rect key="frame" x="0.0" y="0.0" width="393" height="116.33333587646484"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="393" height="123.33333587646484"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="HLb-59-aZB">
-                                                            <rect key="frame" x="0.0" y="8" width="393" height="28"/>
+                                                            <rect key="frame" x="0.0" y="14.999999999999993" width="393" height="100.33333333333331"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hrJ-AR-Muq" userLabel="User Stack">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="393" height="20"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="393" height="50"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uBR-q8-Kle">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="20"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="50" id="L5N-i6-BHO"/>
                                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="SQT-hV-pVE"/>
@@ -137,16 +137,16 @@
                                                                             </constraints>
                                                                         </imageView>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Emv-F8-c8o" userLabel="Rating + Username Stack">
-                                                                            <rect key="frame" x="58" y="0.0" width="335" height="20"/>
+                                                                            <rect key="frame" x="58" y="0.0" width="335" height="50"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YGm-JF-msm">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="335" height="0.0"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="335" height="20"/>
                                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                                     <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vox-3S-zJN" customClass="RatingView" customModule="TV_Shows" customModuleProvider="target">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="335" height="20"/>
+                                                                                    <rect key="frame" x="0.0" y="20" width="335" height="30"/>
                                                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="30" id="stJ-GG-AWH"/>
@@ -167,7 +167,7 @@
                                                                     </subviews>
                                                                 </stackView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gWp-cs-E8n">
-                                                                    <rect key="frame" x="0.0" y="28" width="393" height="0.0"/>
+                                                                    <rect key="frame" x="0.0" y="58" width="393" height="42.333333333333343"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -185,7 +185,7 @@
                                                         <constraint firstAttribute="bottom" secondItem="HLb-59-aZB" secondAttribute="bottom" constant="8" id="8ga-mN-ehM"/>
                                                         <constraint firstItem="HLb-59-aZB" firstAttribute="leading" secondItem="Ueq-D1-itb" secondAttribute="leading" id="BO8-uW-Mku"/>
                                                         <constraint firstAttribute="trailing" secondItem="HLb-59-aZB" secondAttribute="trailing" id="QST-kl-ZoT"/>
-                                                        <constraint firstItem="HLb-59-aZB" firstAttribute="top" secondItem="Ueq-D1-itb" secondAttribute="top" constant="8" id="tyL-xr-RQw"/>
+                                                        <constraint firstItem="HLb-59-aZB" firstAttribute="top" secondItem="Ueq-D1-itb" secondAttribute="top" constant="15" id="tyL-xr-RQw"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
