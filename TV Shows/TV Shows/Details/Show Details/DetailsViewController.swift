@@ -81,7 +81,8 @@ extension DetailsViewController: UITableViewDataSource {
             return 1
         }
         else {
-            guard let reviews = reviews else { return 0 }
+            guard let reviews = reviews else {
+                return 0 }
             return reviews.count
         }
     }

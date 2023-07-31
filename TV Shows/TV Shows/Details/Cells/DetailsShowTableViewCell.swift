@@ -16,6 +16,8 @@ final class DetailsShowTableViewCell: UITableViewCell {
     @IBOutlet weak var ratingView: RatingView!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var showImage: UIImageView!
+    @IBOutlet weak var noReviewsView: UIView!
+    @IBOutlet weak var reviewSummaryView: UIStackView!
     
     // MARK: - Lifecycle Methods
     
@@ -44,10 +46,16 @@ extension DetailsShowTableViewCell {
             placeholder: UIImage(named: "ic-show-placeholder-rectangle"))
         
         descriptionLabel.text = item.description ?? "No text"
+        guard let noOfReviews = item.noOfReviews,
+            let averageRating = item.averageRating else {
+            reviewSummaryView.isHidden = true
+            noReviewsView.isHidden = false
+            return
+        }
         
-        let rating = Double(item.averageRating ?? 0)
+        let rating = Double(averageRating)
         ratingView.setRoundedRating(rating)
-        ratingLabel.text = "\(item.noOfReviews ?? 0) REVIEWS, \(item.averageRating ?? 0) AVERAGE"
+        ratingLabel.text = "\(noOfReviews) REVIEWS, \(averageRating) AVERAGE"
     }
 }
 
@@ -58,5 +66,7 @@ private extension DetailsShowTableViewCell {
     func setupUI() {
         showImage.layer.cornerRadius = 10
         showImage.layer.masksToBounds = true
+        reviewSummaryView.isHidden = false
+        noReviewsView.isHidden = true
     }
 }
