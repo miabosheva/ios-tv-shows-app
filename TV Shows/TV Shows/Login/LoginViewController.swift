@@ -8,6 +8,7 @@
 import UIKit
 import MBProgressHUD
 import Alamofire
+import KeychainAccess
 
 final class LoginViewController : UIViewController {
     
@@ -238,8 +239,8 @@ private extension LoginViewController {
     func saveState(authInfo: AuthInfo) {
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(authInfo) {
-            let defaults = UserDefaults.standard
-            defaults.set(encoded, forKey: Constants.Defaults.authInfo.rawValue)
+            let keychain = Keychain(service: "com.infinum.tv-shows")
+            keychain[data: "authInfo"] = encoded
         }
     }
 

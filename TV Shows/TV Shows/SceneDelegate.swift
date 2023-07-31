@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import KeychainAccess
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -21,7 +22,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Create navigation controller in which we will embed our starting view controller
         let navigationController = UINavigationController()
         
-        guard let savedAuthInfo = UserDefaults.standard.object(forKey: Constants.Defaults.authInfo.rawValue) as? Data else { return }
+        let keychain = Keychain(service: "com.infinum.tv-shows")
+        guard let savedAuthInfo = try? keychain.getData("authInfo") else { return }
         let decoder = JSONDecoder()
         let authInfo = try? decoder.decode(AuthInfo.self, from: savedAuthInfo)
         
