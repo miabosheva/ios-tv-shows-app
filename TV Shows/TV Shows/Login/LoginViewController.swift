@@ -217,14 +217,30 @@ private extension LoginViewController {
             }
     }
 
-    // Headers will be used for subsequent authorization on next requests
     func handleSuccesfulLogin(for user: User, headers: [String: String]) {
         guard let authInfo = try? AuthInfo(headers: headers) else {
             print("Missing headers")
             return
         }
         print("\(user)\n")
+        if rememberMeButton.isSelected {
+            // Store headers in user defaults
+            saveState(authInfo: authInfo)
+        }
         self.authInfo = authInfo
     }
 }
 
+// MARK: - Storing in User Defaults
+
+private extension LoginViewController {
+    
+    func saveState(authInfo: AuthInfo) {
+        let encoder = JSONEncoder()
+        if let encoded = try? encoder.encode(authInfo) {
+            let defaults = UserDefaults.standard
+            defaults.set(encoded, forKey: Constants.Defaults.authInfo.rawValue)
+        }
+    }
+
+}
