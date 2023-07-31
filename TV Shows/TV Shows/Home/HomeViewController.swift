@@ -30,6 +30,7 @@ final class HomeViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
+        configureRefreshControl()
     }
     
     // MARK: - Helper Methods
@@ -37,6 +38,11 @@ final class HomeViewController : UIViewController {
     func loadData(){
         listShows()
         currentPage += 1
+    }
+    
+    func configureRefreshControl(){
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
     }
 }
 
@@ -128,6 +134,13 @@ private extension HomeViewController {
         tableView.dataSource = self
         
         listShows()
+    }
+    
+    @objc func handleRefreshControl() {
+        listShows()
+        DispatchQueue.main.async {
+              self.tableView.refreshControl?.endRefreshing()
+        }
     }
 }
 
