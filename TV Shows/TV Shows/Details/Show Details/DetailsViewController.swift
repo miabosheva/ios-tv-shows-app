@@ -26,6 +26,7 @@ final class DetailsViewController : UIViewController {
         super.viewDidLoad()
         loadShowDetails()
     }
+
     
     // MARK: - Actions
     @IBAction func addAReviewButtonTap() {
@@ -35,6 +36,7 @@ final class DetailsViewController : UIViewController {
         
         writeReviewController.authInfo = self.authInfo
         writeReviewController.show = self.show
+        writeReviewController.delegate = self
         
         let navigationController = UINavigationController(rootViewController: writeReviewController)
         present(navigationController, animated: true)
@@ -66,6 +68,14 @@ final class DetailsViewController : UIViewController {
           }
     }
     
+}
+
+// MARK: - Delegate pattern method
+
+extension DetailsViewController: WriteReviewControllerDelegate {
+    func submitReview() {
+        listReviews()
+    }
 }
 
 extension DetailsViewController: UITableViewDataSource {

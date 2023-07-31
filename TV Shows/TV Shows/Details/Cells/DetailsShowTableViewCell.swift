@@ -36,7 +36,7 @@ extension DetailsShowTableViewCell {
 
     func configure(with item: Show) {
         descriptionLabel.text = item.description ?? "No text"
-        var rating = Double(item.averageRating ?? 0)
+        let rating = Double(item.averageRating ?? 0)
         ratingView.setRoundedRating(rating)
         ratingLabel.text = "\(item.noOfReviews ?? 0) REVIEWS, \(item.averageRating ?? 0) AVERAGE"
     }

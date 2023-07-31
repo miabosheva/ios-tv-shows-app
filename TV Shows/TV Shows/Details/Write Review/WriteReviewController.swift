@@ -20,6 +20,7 @@ final class WriteReviewController: UIViewController {
     
     // MARK: - Properties
     
+    weak var delegate: WriteReviewControllerDelegate?
     var authInfo: AuthInfo?
     var show: Show?
 
@@ -34,23 +35,15 @@ final class WriteReviewController: UIViewController {
         textView.delegate = self
         textView.text = "Enter your comment here..."
         textView.textColor = UIColor.lightGray
-
-        textView.becomeFirstResponder()
-        textView.selectedTextRange = textView.textRange(from: textView.beginningOfDocument, to: textView.beginningOfDocument)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
         let backButton: UIBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close))
         self.navigationItem.leftBarButtonItem = backButton;
-        super.viewWillAppear(animated);
     }
     
     // MARK: - Actions
     
     @IBAction func submitButtonTap() {
-        guard let show else { return }
-        guard let authInfo else { return }
-        
+        guard let show, let authInfo else { return }
+
         let rating = ratingView.rating
         let comment = textView.text ?? ""
         let showid = show.id
@@ -67,14 +60,14 @@ final class WriteReviewController: UIViewController {
             method: .post,
             parameters: parameters,
             encoding: JSONEncoding.default,
-            headers:
-                HTTPHeaders(authInfo.headers)
+            headers: HTTPHeaders(authInfo.headers)
           )
           .validate()
           .responseDecodable(of: ReviewSubmitResponse.self) { [weak self] dataResponse in
               guard let self = self else { return }
               switch dataResponse.result {
               case .success(_):
+                  delegate?.submitReview()
                   close()
               case .failure(let error):
                   print(error.localizedDescription)
@@ -94,6 +87,12 @@ private extension WriteReviewController {
     func roundViewCorners(){
         viewContainerForText.layer.cornerRadius = 12
     }
+}
+
+// MARK: - Delegate protocol init
+
+protocol WriteReviewControllerDelegate: AnyObject {
+    func submitReview()
 }
 
 extension WriteReviewController: UITextViewDelegate {
