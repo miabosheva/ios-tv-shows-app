@@ -15,12 +15,6 @@ final class TVShowTableViewCell: UITableViewCell {
 
     @IBOutlet weak var showImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
-    
-    // MARK: - Lifecycle
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        setupUI()
-    }
 
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -52,4 +46,3 @@ private extension TVShowTableViewCell {
         showImage.layer.masksToBounds = true
     }
 }
-

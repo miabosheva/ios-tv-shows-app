@@ -23,7 +23,7 @@ final class HomeViewController : UIViewController {
     var userResponse: UserResponse?
     var shows: [Show] = []
     var currentPage = 1
-    var totalPages = 3
+    var totalPages = 0
     
     // MARK: - Lifecycle Methods
     
@@ -67,6 +67,8 @@ private extension HomeViewController {
               MBProgressHUD.hide(for: self.view, animated: true)
               switch dataResponse.result {
               case .success(let showsResponse):
+                  totalPages = showsResponse.meta.pagination.pages
+                  currentPage = showsResponse.meta.pagination.page
                   self.shows.append(contentsOf: showsResponse.shows)
                   tableView.reloadData()
               case .failure(let error):
@@ -82,16 +84,12 @@ extension HomeViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-       
-        print("Clicking \(indexPath.row)")
+        
         let storyboard = UIStoryboard(name: "Details", bundle: nil)
-                
         let detailsController = storyboard.instantiateViewController(withIdentifier: "detailsController") as! DetailsViewController
-                
-        navigationController?.pushViewController(detailsController, animated: true)
-            
         detailsController.authInfo = authInfo
         detailsController.show = shows[indexPath.row]
+        navigationController?.pushViewController(detailsController, animated: true)
     }
 }
 

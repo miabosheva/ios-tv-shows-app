@@ -101,6 +101,7 @@
                         <outlet property="ratingView" destination="gbu-f8-Wrx" id="9cz-Tq-UaI"/>
                         <outlet property="submitButton" destination="cwO-Lk-lyB" id="jAv-Jc-2xD"/>
                         <outlet property="textView" destination="Raj-Zh-ORI" id="K9i-1O-YsT"/>
+                        <outlet property="viewContainerForText" destination="g7v-3c-gFJ" id="g7L-xB-Hsq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
