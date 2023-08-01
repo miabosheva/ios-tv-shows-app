@@ -78,8 +78,12 @@ extension HomeViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let item = shows[indexPath.row]
-        print("Selected Item: \(item)")
+        
+        let storyboard = UIStoryboard(name: "Details", bundle: nil)
+        let detailsController = storyboard.instantiateViewController(withIdentifier: "detailsController") as! DetailsViewController
+        detailsController.authInfo = authInfo
+        detailsController.show = shows[indexPath.row]
+        navigationController?.pushViewController(detailsController, animated: true)
     }
 }
 
@@ -108,7 +112,6 @@ extension HomeViewController: UITableViewDataSource {
             loadData()
         }
     }
-    
 }
 
 // MARK: - Private
@@ -118,9 +121,7 @@ private extension HomeViewController {
     func setupTableView() {
         tableView.estimatedRowHeight = 110
         tableView.rowHeight = UITableView.automaticDimension
-
         tableView.tableFooterView = UIView()
-
         tableView.delegate = self
         tableView.dataSource = self
         
