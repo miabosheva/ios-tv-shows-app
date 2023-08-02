@@ -196,12 +196,14 @@ private extension LoginViewController {
             keychain[data: "authInfo"] = encoded
         }
     }
+}
 
 // MARK: - Helper Methods
 
 private extension LoginViewController {
+    
     func checkIfTextFieldsAreEmpty(){
-        if emailTextField.text == "" || passwordTextField.text == ""{
+        if emailTextField.text == "" || passwordTextField.text == "" {
             setButtonsAsDisabled()
         } else {
             setButtonsAsEnabled()
