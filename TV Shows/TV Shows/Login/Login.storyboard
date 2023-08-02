@@ -316,6 +316,7 @@
             <point key="canvasLocation" x="57.251908396946561" y="-2.1126760563380285"/>
         </scene>
     </scenes>
+    <color key="tintColor" red="0.32156862749999998" green="0.21176470589999999" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
     <resources>
         <image name="eye.fill" catalog="system" width="128" height="80"/>
         <image name="logo-white" width="162" height="38"/>
