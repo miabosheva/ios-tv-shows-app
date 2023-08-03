@@ -34,6 +34,8 @@ final class LoginViewController : UIViewController {
         setAtttributedPlacehordersEmailAndPassword()
         setTitleColorLoginAndRegisterBtn()
         setButtonsAsDisabled()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didLogout), name: NSNotification.Name("didLogout"), object: nil)
     }
     
     // MARK: - Actions
@@ -127,7 +129,7 @@ private extension LoginViewController {
                 case .failure(let error):
                     print("API/Serialization failure: \(error)")
                     loginButton.shake()
-                    showAlert()
+                    showAlert(title: "Login failed", message: "Credentials are not valid.")
                 }
             }
     }
@@ -166,7 +168,7 @@ private extension LoginViewController {
                 case .failure(let error):
                     print("Login failure error: \(error.localizedDescription).")
                     loginButton.shake()
-                    showAlert()
+                    showAlert(title: "Login failed", message: "Credentials are not valid.")
                 }
             }
     }
@@ -238,12 +240,21 @@ private extension LoginViewController {
         registerButton.setTitleColor(UIColor.white.withAlphaComponent(0.7), for: .disabled)
     }
     
-    func showAlert(){
-        let alertController = UIAlertController(title: "Login failed", message: "Credentials are not valid.", preferredStyle: .alert)
+    func showAlert(title: String, message: String){
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
         let OKAction = UIAlertAction(title: "OK", style: .default)
         alertController.addAction(OKAction)
 
         self.present(alertController, animated: true)
+    }
+    
+    @objc func didLogout()  {
+        let storyboard = UIStoryboard(name: "Login", bundle: nil)
+        let loginController = storyboard.instantiateViewController(withIdentifier: "loginController") as! LoginViewController
+        
+        navigationController?.setViewControllers([loginController], animated: true)
+        
+        showAlert(title: "Logout", message: "You have been logged out.")
     }
 }

@@ -7,6 +7,8 @@
 
 import Foundation
 import UIKit
+import KeychainAccess
+import Alamofire
 
 final class ProfileController: UIViewController {
     
@@ -37,7 +39,16 @@ final class ProfileController: UIViewController {
 extension ProfileController {
     
     @IBAction func logoutButtonTap(){
-        
+        dismiss(animated: true, completion: {
+            let keychain = Keychain(service: "com.infinum.tv-shows")
+            keychain["authInfo"] = nil
+            NotificationCenter.default.post(name: NSNotification.Name("didLogout"), object: nil)
+            
+            let storyboard = UIStoryboard(name: "Login", bundle: nil)
+            let loginController = storyboard.instantiateViewController(withIdentifier: "loginController") as! LoginViewController
+            
+            self.navigationController?.setViewControllers([loginController], animated: true)
+            })
     }
     
     @IBAction func changeProfilePhoto(){
@@ -54,6 +65,28 @@ private extension ProfileController {
     }
     
     func setupProfileImage(){
+        let keychain = Keychain(service: "com.infinum.tv-shows")
+        guard let savedAuthInfo = try? keychain.getData("authInfo") else { return }
+        let decoder = JSONDecoder()
+        guard let authInfo = try? decoder.decode(AuthInfo.self, from: savedAuthInfo) else { return }
+        
+        AF
+          .request(
+              "https://tv-shows.infinum.academy/users/me",
+              method: .get,
+              headers: HTTPHeaders(authInfo.headers)
+          )
+          .validate()
+          .responseDecodable(of: UserResponse.self) { [weak self] dataResponse in
+              guard let self = self else { return }
+              switch dataResponse.result {
+              case .success(let userResponse):
+                  self.user = userResponse.user
+              case .failure(let error):
+                  print(error.localizedDescription)
+              }
+          }
+        
         let url = self.user?.imageUrl ?? ""
         let imageUrl = URL(string: url)
         
