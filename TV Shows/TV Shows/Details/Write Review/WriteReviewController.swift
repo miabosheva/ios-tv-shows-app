@@ -131,6 +131,7 @@ extension WriteReviewController: UITextViewDelegate {
 
             textView.selectedTextRange = textView.textRange(from: textView.beginningOfDocument, to: textView.beginningOfDocument)
         }
+        
         else if textView.textColor == UIColor.lightGray && !text.isEmpty {
             textView.textColor = UIColor.black
             textView.text = text
@@ -139,8 +140,16 @@ extension WriteReviewController: UITextViewDelegate {
         else {
             return true
         }
+        
         return false
     }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        if textView.hasText && textView.textColor == .black {
+            submitButton.isEnabled = true
+        }
+        else {
+            submitButton.isEnabled = false
+        }
+    }
 }
-
-// TODO: - UITextViewDelegate : didChange

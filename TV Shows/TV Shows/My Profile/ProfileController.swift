@@ -20,17 +20,19 @@ final class ProfileController: UIViewController {
     // MARK: - Properties
     
     var user: User?
+    let imagePicker = UIImagePickerController()
+    var authInfo: AuthInfo?
     
     // MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        imagePicker.delegate = self
         let backButton: UIBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close))
         backButton.tintColor = UIColor(named: "primary-color")
         self.navigationItem.leftBarButtonItem = backButton;
-        setupProfileImage()
-        usernameLabel.text = self.user?.email ?? ""
+        fetchUserFromBackend()
     }
 }
 
@@ -46,10 +48,6 @@ extension ProfileController {
             NotificationCenter.default.post(name: NSNotification.Name("didLogout"), object: nil)
             })
     }
-    
-    @IBAction func changeProfilePhoto(){
-        
-    }
 }
 
 private extension ProfileController {
@@ -60,11 +58,13 @@ private extension ProfileController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func setupProfileImage(){
+    func fetchUserFromBackend(){
         let keychain = Keychain(service: "com.infinum.tv-shows")
         guard let savedAuthInfo = try? keychain.getData("authInfo") else { return }
         let decoder = JSONDecoder()
         guard let authInfo = try? decoder.decode(AuthInfo.self, from: savedAuthInfo) else { return }
+        
+        self.authInfo = authInfo
         
         AF
           .request(
@@ -78,11 +78,14 @@ private extension ProfileController {
               switch dataResponse.result {
               case .success(let userResponse):
                   self.user = userResponse.user
+                  setupUI()
               case .failure(let error):
                   print(error.localizedDescription)
               }
           }
-        
+    }
+    
+    func setupUI(){
         let url = self.user?.imageUrl ?? ""
         let imageUrl = URL(string: url)
         
@@ -90,5 +93,60 @@ private extension ProfileController {
             with: imageUrl,
             placeholder: UIImage(named: "ic-profile-placeholder"))
         profileImage.layer.cornerRadius = 50
+        usernameLabel.text = self.user?.email ?? ""
+    }
+    
+    func storeImage(_ image: UIImage) {
+        guard
+            let imageData = image.jpegData(compressionQuality: 0.9)
+        else { return }
+
+        let requestData = MultipartFormData()
+        requestData.append(
+            imageData,
+            withName: "image",
+            fileName: "image.jpg",
+            mimeType: "image/jpg"
+        )
+        
+        guard let authInfo else { return }
+
+        AF
+            .upload(
+                multipartFormData: requestData,
+                to: "https://tv-shows.infinum.academy/users",
+                method: .put,
+                headers: HTTPHeaders(authInfo.headers)
+            )
+            .validate()
+            .responseDecodable(of: UserResponse.self) { dataResponse in
+                print(dataResponse)
+            }
+    }
+}
+
+extension ProfileController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    @IBAction func changeProfilePhoto(_ sender: UIButton){
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .photoLibrary
+                
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    // MARK: - UIImagePickerControllerDelegate Methods
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            profileImage.contentMode = .scaleAspectFill
+            profileImage.image = pickedImage
+            storeImage(pickedImage)
+        }
+
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
 }

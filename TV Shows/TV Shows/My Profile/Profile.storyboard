@@ -59,7 +59,7 @@
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="plain" title="Change Profile Photo"/>
                                                                 <connections>
-                                                                    <action selector="changeProfilePhoto" destination="Y6W-OH-hqX" eventType="touchUpInside" id="fSZ-Wg-qMc"/>
+                                                                    <action selector="changeProfilePhoto:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="aHe-HU-PGM"/>
                                                                 </connections>
                                                             </button>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qv6-An-g8N">
