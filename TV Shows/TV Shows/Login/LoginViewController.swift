@@ -82,7 +82,7 @@ final class LoginViewController : UIViewController {
 
 private extension LoginViewController {
     
-    private func navigateToHomeController() {
+    func navigateToHomeController() {
         let storyboard = UIStoryboard(name: "Home", bundle: nil)
             
         let homeController = storyboard.instantiateViewController(withIdentifier: "homeController") as! HomeViewController

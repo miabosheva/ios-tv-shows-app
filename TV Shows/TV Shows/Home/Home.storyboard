@@ -133,6 +133,7 @@
             <point key="canvasLocation" x="947.32824427480909" y="-2.1126760563380285"/>
         </scene>
     </scenes>
+    <color key="tintColor" red="0.32156862749999998" green="0.21176470589999999" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

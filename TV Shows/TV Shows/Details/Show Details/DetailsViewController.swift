@@ -123,6 +123,8 @@ extension DetailsViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - Helper Methods
+
 private extension DetailsViewController {
     func loadShowDetails(){
         tableView.estimatedRowHeight = 1000
@@ -134,4 +136,11 @@ private extension DetailsViewController {
         titleLabel.text = show.title
         listReviews()
     }
+    
+    // TODO: - How can this be changed?
+    
+//    func modifyBackButton(){
+//        navItemOutlet.leftBarButtonItem?.tintColor = UIColor(cgColor: CGColor(red: 0.3215686274509804, green: 0.21176470588235294, blue: 0.5490196078431373, alpha: 1.0))
+//        navItemOutlet.leftBarButtonItem?.title = "Shows"
+//    }
 }
