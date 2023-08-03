@@ -41,6 +41,8 @@ final class HomeViewController : UIViewController {
         )
         profileDetailsItem.tintColor = UIColor(named: "primary-color")
         navigationItem.rightBarButtonItem = profileDetailsItem
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didLogout), name: NSNotification.Name(rawValue: "didLogout"), object: nil)
     }
     
     // MARK: - Helper Methods
@@ -160,6 +162,13 @@ private extension HomeViewController {
         
         let navigationController = UINavigationController(rootViewController: profileController)
         present(navigationController, animated: true)
+    }
+    
+    @objc func didLogout()  {
+        let storyboard = UIStoryboard(name: "Login", bundle: nil)
+        let loginController = storyboard.instantiateViewController(withIdentifier: "loginController") as! LoginViewController
+        
+        navigationController?.setViewControllers([loginController], animated: true)
     }
 }
 

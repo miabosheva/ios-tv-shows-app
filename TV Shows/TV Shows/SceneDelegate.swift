@@ -32,6 +32,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let storyboard = UIStoryboard(name: "Home", bundle: nil)
             let homeController = storyboard.instantiateViewController(withIdentifier: "homeController") as! HomeViewController
             homeController.authInfo = authInfo
+            // TODO: - Fix
+            navigationController.navigationBar.prefersLargeTitles = true
             navigationController.setViewControllers([homeController], animated: true)
         } else {
             let storyboard = UIStoryboard(name: "Login", bundle: nil)

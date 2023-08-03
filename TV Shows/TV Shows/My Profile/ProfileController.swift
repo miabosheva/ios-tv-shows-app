@@ -42,12 +42,8 @@ extension ProfileController {
         dismiss(animated: true, completion: {
             let keychain = Keychain(service: "com.infinum.tv-shows")
             keychain["authInfo"] = nil
+            
             NotificationCenter.default.post(name: NSNotification.Name("didLogout"), object: nil)
-            
-            let storyboard = UIStoryboard(name: "Login", bundle: nil)
-            let loginController = storyboard.instantiateViewController(withIdentifier: "loginController") as! LoginViewController
-            
-            self.navigationController?.setViewControllers([loginController], animated: true)
             })
     }
     
