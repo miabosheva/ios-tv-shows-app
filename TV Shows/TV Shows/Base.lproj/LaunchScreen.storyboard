@@ -17,10 +17,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash-top-left" translatesAutoresizingMaskIntoConstraints="NO" id="edJ-3H-F15">
-                                <rect key="frame" x="0.0" y="59" width="140" height="100"/>
+                                <rect key="frame" x="0.0" y="0.0" width="140" height="100"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash-top-right" translatesAutoresizingMaskIntoConstraints="NO" id="HPN-d0-r5i">
-                                <rect key="frame" x="191" y="59" width="202" height="266"/>
+                                <rect key="frame" x="191" y="0.0" width="202" height="266"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-white" translatesAutoresizingMaskIntoConstraints="NO" id="TKN-uK-2nl">
                                 <rect key="frame" x="115.66666666666669" y="407" width="162" height="38"/>
@@ -30,12 +30,12 @@
                         <color key="backgroundColor" red="0.32156862745098036" green="0.21176470588235294" blue="0.5490196078431373" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <color key="tintColor" red="0.32156862749999998" green="0.21176470589999999" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="edJ-3H-F15" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="84f-Tq-E41"/>
+                            <constraint firstItem="edJ-3H-F15" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="84f-Tq-E41"/>
                             <constraint firstItem="TKN-uK-2nl" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="IwM-Ls-Cco"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="HPN-d0-r5i" secondAttribute="trailing" id="QOH-Py-bOm"/>
+                            <constraint firstAttribute="trailing" secondItem="HPN-d0-r5i" secondAttribute="trailing" id="QOH-Py-bOm"/>
                             <constraint firstItem="TKN-uK-2nl" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="aLQ-dp-hXk"/>
-                            <constraint firstItem="edJ-3H-F15" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="awZ-5f-BNn"/>
-                            <constraint firstItem="HPN-d0-r5i" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="rfQ-lk-Kl4"/>
+                            <constraint firstItem="edJ-3H-F15" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="awZ-5f-BNn"/>
+                            <constraint firstItem="HPN-d0-r5i" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="rfQ-lk-Kl4"/>
                         </constraints>
                     </view>
                 </viewController>

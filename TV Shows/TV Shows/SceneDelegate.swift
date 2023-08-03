@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import KeychainAccess
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -17,6 +18,28 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        
+        // Create navigation controller in which we will embed our starting view controller
+        let navigationController = UINavigationController()
+        
+        let keychain = Keychain(service: "com.infinum.tv-shows")
+        guard let savedAuthInfo = try? keychain.getData("authInfo") else { return }
+        let decoder = JSONDecoder()
+        let authInfo = try? decoder.decode(AuthInfo.self, from: savedAuthInfo)
+        
+            // Check if user picked remember me
+        if authInfo != nil {
+            let storyboard = UIStoryboard(name: "Home", bundle: nil)
+            let homeController = storyboard.instantiateViewController(withIdentifier: "homeController") as! HomeViewController
+            homeController.authInfo = authInfo
+            navigationController.setViewControllers([homeController], animated: true)
+        } else {
+            let storyboard = UIStoryboard(name: "Login", bundle: nil)
+            let loginController = storyboard.instantiateViewController(withIdentifier: "loginController") as! LoginViewController
+            navigationController.setViewControllers([loginController], animated: true)
+        }
+        // Set the navigation controller as starting point of the app
+        window?.rootViewController = navigationController
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

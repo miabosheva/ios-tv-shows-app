@@ -57,3 +57,11 @@ struct AuthInfo: Codable {
         }
     }
 }
+
+enum Constants {
+
+    enum Defaults: String {
+        case authInfo
+    }
+
+}

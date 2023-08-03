@@ -8,6 +8,7 @@
 import UIKit
 import MBProgressHUD
 import Alamofire
+import KeychainAccess
 
 final class LoginViewController : UIViewController {
     
@@ -125,6 +126,7 @@ private extension LoginViewController {
                     navigateToHomeController()
                 case .failure(let error):
                     print("API/Serialization failure: \(error)")
+                    loginButton.shake()
                     showAlert()
                 }
             }
@@ -163,6 +165,7 @@ private extension LoginViewController {
                     navigateToHomeController()
                 case .failure(let error):
                     print("Login failure error: \(error.localizedDescription).")
+                    loginButton.shake()
                     showAlert()
                 }
             }
@@ -173,15 +176,34 @@ private extension LoginViewController {
             print("Missing headers")
             return
         }
+        print("\(user)\n")
+        if rememberMeButton.isSelected {
+            // Store headers in user defaults
+            saveState(authInfo: authInfo)
+        }
         self.authInfo = authInfo
+    }
+}
+
+// MARK: - Storing in User Defaults
+
+private extension LoginViewController {
+    
+    func saveState(authInfo: AuthInfo) {
+        let encoder = JSONEncoder()
+        if let encoded = try? encoder.encode(authInfo) {
+            let keychain = Keychain(service: "com.infinum.tv-shows")
+            keychain[data: "authInfo"] = encoded
+        }
     }
 }
 
 // MARK: - Helper Methods
 
 private extension LoginViewController {
+    
     func checkIfTextFieldsAreEmpty(){
-        if emailTextField.text == "" || passwordTextField.text == ""{
+        if emailTextField.text == "" || passwordTextField.text == "" {
             setButtonsAsDisabled()
         } else {
             setButtonsAsEnabled()

@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 final class TVShowTableViewCell: UITableViewCell {
 
@@ -28,7 +29,20 @@ final class TVShowTableViewCell: UITableViewCell {
 extension TVShowTableViewCell {
 
     func configure(with item: Show) {
+        let imageUrl = URL(string: item.imageUrl)
+        showImage.kf.setImage(
+            with: imageUrl,
+            placeholder: UIImage(named: "ic-show-placeholder-vertical"))
         titleLabel.text = item.title
     }
 }
 
+// MARK: - Private
+
+private extension TVShowTableViewCell {
+
+    func setupUI() {
+        showImage.layer.cornerRadius = 10
+        showImage.layer.masksToBounds = true
+    }
+}
