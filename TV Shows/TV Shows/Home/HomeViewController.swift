@@ -31,6 +31,16 @@ final class HomeViewController : UIViewController {
         super.viewDidLoad()
         setupTableView()
         configureRefreshControl()
+        
+        // Add navigation item
+        let profileDetailsItem = UIBarButtonItem(
+            image: UIImage(named: "ic-profile"),
+            style: .plain,
+            target: self,
+            action: #selector(profileDetailsActionHandler)
+        )
+        profileDetailsItem.tintColor = UIColor(named: "primary-color")
+        navigationItem.rightBarButtonItem = profileDetailsItem
     }
     
     // MARK: - Helper Methods
@@ -139,6 +149,17 @@ private extension HomeViewController {
         DispatchQueue.main.async {
               self.tableView.refreshControl?.endRefreshing()
         }
+    }
+    
+    @objc func profileDetailsActionHandler() {
+        let storyboard = UIStoryboard(name: "Profile", bundle: nil)
+                
+        let profileController = storyboard.instantiateViewController(withIdentifier: "profileController") as! ProfileController
+        
+        profileController.user = userResponse?.user
+        
+        let navigationController = UINavigationController(rootViewController: profileController)
+        present(navigationController, animated: true)
     }
 }
 

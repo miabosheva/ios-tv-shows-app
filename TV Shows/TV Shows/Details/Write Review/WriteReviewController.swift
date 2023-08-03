@@ -36,7 +36,7 @@ final class WriteReviewController: UIViewController {
         textView.text = "Enter your comment here..."
         textView.textColor = UIColor.lightGray
         let backButton: UIBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close))
-        backButton.tintColor = UIColor(cgColor: CGColor(red: 0.3215686274509804, green: 0.21176470588235294, blue: 0.5490196078431373, alpha: 1.0))
+        backButton.tintColor = UIColor(named: "primary-color")
         self.navigationItem.leftBarButtonItem = backButton;
     }
     
