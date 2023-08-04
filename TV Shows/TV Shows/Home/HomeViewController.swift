@@ -31,8 +31,26 @@ final class HomeViewController : UIViewController {
         super.viewDidLoad()
         setupTableView()
         configureRefreshControl()
+        setupUI()
         
-        // Add navigation item
+        NotificationCenter.default.addObserver(self, selector: #selector(didLogout), name: NSNotification.Name(rawValue: "didLogout"), object: nil)
+    }
+}
+
+private extension HomeViewController {
+    // MARK: - Helper Methods
+    
+    func loadData() {
+        listShows()
+        currentPage += 1
+    }
+    
+    func configureRefreshControl() {
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
+    }
+    
+    func setupUI() {
         let profileDetailsItem = UIBarButtonItem(
             image: UIImage(named: "ic-profile"),
             style: .plain,
@@ -41,20 +59,6 @@ final class HomeViewController : UIViewController {
         )
         profileDetailsItem.tintColor = UIColor(named: "primary-color")
         navigationItem.rightBarButtonItem = profileDetailsItem
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(didLogout), name: NSNotification.Name(rawValue: "didLogout"), object: nil)
-    }
-    
-    // MARK: - Helper Methods
-    
-    func loadData(){
-        listShows()
-        currentPage += 1
-    }
-    
-    func configureRefreshControl(){
-        tableView.refreshControl = UIRefreshControl()
-        tableView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
     }
 }
 
@@ -62,38 +66,38 @@ final class HomeViewController : UIViewController {
 
 private extension HomeViewController {
     
-    @objc func listShows(){
+    @objc func listShows() {
         
         guard let authInfo = authInfo else { return }
         
         AF
-          .request(
-              "https://tv-shows.infinum.academy/shows",
-              method: .get,
-              parameters: ["page": currentPage, "items": "20"], // pagination arguments
-              headers: HTTPHeaders(authInfo.headers)
-          )
-          .validate()
-          .responseDecodable(of: ShowsResponse.self) { [weak self] dataResponse in
-              guard let self = self else { return }
-              MBProgressHUD.hide(for: self.view, animated: true)
-              switch dataResponse.result {
-              case .success(let showsResponse):
-                  totalPages = showsResponse.meta.pagination.pages
-                  currentPage = showsResponse.meta.pagination.page
-                  self.shows.append(contentsOf: showsResponse.shows)
-                  tableView.reloadData()
-              case .failure(let error):
-                  print(error)
-              }
-          }
+            .request(
+                "https://tv-shows.infinum.academy/shows",
+                method: .get,
+                parameters: ["page": currentPage, "items": "20"], // pagination arguments
+                headers: HTTPHeaders(authInfo.headers)
+            )
+            .validate()
+            .responseDecodable(of: ShowsResponse.self) { [weak self] dataResponse in
+                guard let self = self else { return }
+                MBProgressHUD.hide(for: self.view, animated: true)
+                switch dataResponse.result {
+                case .success(let showsResponse):
+                    totalPages = showsResponse.meta.pagination.pages
+                    currentPage = showsResponse.meta.pagination.page
+                    self.shows.append(contentsOf: showsResponse.shows)
+                    tableView.reloadData()
+                case .failure(let error):
+                    print(error)
+                }
+            }
     }
 }
 
 extension HomeViewController: UITableViewDelegate {
-
+    
     // MARK: - UITableViewDelegate
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
@@ -106,20 +110,20 @@ extension HomeViewController: UITableViewDelegate {
 }
 
 extension HomeViewController: UITableViewDataSource {
-
+    
     // MARK: - UITableViewDataSource
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return shows.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+        
         let cell = tableView.dequeueReusableCell(
             withIdentifier: String(describing: TVShowTableViewCell.self),
             for: indexPath
         ) as! TVShowTableViewCell
-
+        
         cell.configure(with: shows[indexPath.row])
         
         return cell
@@ -135,7 +139,7 @@ extension HomeViewController: UITableViewDataSource {
 // MARK: - Private
 
 private extension HomeViewController {
-
+    
     func setupTableView() {
         tableView.estimatedRowHeight = 110
         tableView.rowHeight = UITableView.automaticDimension
@@ -149,13 +153,13 @@ private extension HomeViewController {
     @objc func handleRefreshControl() {
         listShows()
         DispatchQueue.main.async {
-              self.tableView.refreshControl?.endRefreshing()
+            self.tableView.refreshControl?.endRefreshing()
         }
     }
     
     @objc func profileDetailsActionHandler() {
         let storyboard = UIStoryboard(name: "Profile", bundle: nil)
-                
+        
         let profileController = storyboard.instantiateViewController(withIdentifier: "profileController") as! ProfileController
         
         profileController.user = userResponse?.user

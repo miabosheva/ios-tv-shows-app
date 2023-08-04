@@ -27,11 +27,8 @@ final class ProfileController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         imagePicker.delegate = self
-        let backButton: UIBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close))
-        backButton.tintColor = UIColor(named: "primary-color")
-        self.navigationItem.leftBarButtonItem = backButton;
+        setupBackButton()
         fetchUserFromBackend()
     }
 }
@@ -40,25 +37,24 @@ final class ProfileController: UIViewController {
 
 extension ProfileController {
     
-    @IBAction func logoutButtonTap(){
+    @IBAction func logoutButtonTap() {
         dismiss(animated: true, completion: {
             let keychain = Keychain(service: "com.infinum.tv-shows")
             keychain["authInfo"] = nil
-            
             NotificationCenter.default.post(name: NSNotification.Name("didLogout"), object: nil)
-            })
+        })
     }
 }
 
 private extension ProfileController {
- 
+    
     // MARK: - Helper Methods
     
     @objc func close() {
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
-    func fetchUserFromBackend(){
+    func fetchUserFromBackend() {
         let keychain = Keychain(service: "com.infinum.tv-shows")
         guard let savedAuthInfo = try? keychain.getData("authInfo") else { return }
         let decoder = JSONDecoder()
@@ -67,31 +63,38 @@ private extension ProfileController {
         self.authInfo = authInfo
         
         AF
-          .request(
-              "https://tv-shows.infinum.academy/users/me",
-              method: .get,
-              headers: HTTPHeaders(authInfo.headers)
-          )
-          .validate()
-          .responseDecodable(of: UserResponse.self) { [weak self] dataResponse in
-              guard let self = self else { return }
-              switch dataResponse.result {
-              case .success(let userResponse):
-                  self.user = userResponse.user
-                  setupUI()
-              case .failure(let error):
-                  print(error.localizedDescription)
-              }
-          }
+            .request(
+                "https://tv-shows.infinum.academy/users/me",
+                method: .get,
+                headers: HTTPHeaders(authInfo.headers)
+            )
+            .validate()
+            .responseDecodable(of: UserResponse.self) { [weak self] dataResponse in
+                guard let self = self else { return }
+                switch dataResponse.result {
+                case .success(let userResponse):
+                    self.user = userResponse.user
+                    setupUI()
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
     }
     
-    func setupUI(){
+    func setupBackButton() {
+        let backButton: UIBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close))
+        backButton.tintColor = UIColor(named: "primary-color")
+        self.navigationItem.leftBarButtonItem = backButton;
+    }
+    
+    func setupUI() {
         let url = self.user?.imageUrl ?? ""
         let imageUrl = URL(string: url)
         
         profileImage.kf.setImage(
             with: imageUrl,
-            placeholder: UIImage(named: "ic-profile-placeholder"))
+            placeholder: UIImage(named: "ic-profile-placeholder")
+        )
         profileImage.layer.cornerRadius = 50
         usernameLabel.text = self.user?.email ?? ""
     }
@@ -100,7 +103,7 @@ private extension ProfileController {
         guard
             let imageData = image.jpegData(compressionQuality: 0.9)
         else { return }
-
+        
         let requestData = MultipartFormData()
         requestData.append(
             imageData,
@@ -110,7 +113,7 @@ private extension ProfileController {
         )
         
         guard let authInfo else { return }
-
+        
         AF
             .upload(
                 multipartFormData: requestData,
@@ -130,19 +133,19 @@ extension ProfileController: UIImagePickerControllerDelegate, UINavigationContro
     @IBAction func changeProfilePhoto(_ sender: UIButton){
         imagePicker.allowsEditing = false
         imagePicker.sourceType = .photoLibrary
-                
+        
         present(imagePicker, animated: true, completion: nil)
     }
     
     // MARK: - UIImagePickerControllerDelegate Methods
-
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             profileImage.contentMode = .scaleAspectFill
             profileImage.image = pickedImage
             storeImage(pickedImage)
         }
-
+        
         dismiss(animated: true, completion: nil)
     }
     

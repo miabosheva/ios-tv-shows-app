@@ -87,7 +87,7 @@ private extension WriteReviewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func animateSubmitButtonTap(){
+    func animateSubmitButtonTap() {
         let newTransform = CGAffineTransform(
             scaleX: 0.9,
             y: 0.9
@@ -105,7 +105,7 @@ private extension WriteReviewController {
             }
     }
   
-    func roundViewCorners(){
+    func roundViewCorners() {
         viewContainerForText.layer.cornerRadius = 10
     }
 }
@@ -147,8 +147,7 @@ extension WriteReviewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         if textView.hasText && textView.textColor == .black {
             submitButton.isEnabled = true
-        }
-        else {
+        } else {
             submitButton.isEnabled = false
         }
     }
