@@ -29,6 +29,9 @@ final class WriteReviewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(checkRating))
+        ratingView.addGestureRecognizer(tap)
     }
     
     // MARK: - Actions
@@ -78,6 +81,12 @@ private extension WriteReviewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @objc func checkRating(){
+        if ratingView.rating > 0 && textView.textColor == .black {
+            submitButton.isEnabled = true
+        }
+    }
+    
     func animateSubmitButtonTap() {
         let newTransform = CGAffineTransform(
             scaleX: 0.9,
@@ -97,6 +106,7 @@ private extension WriteReviewController {
     }
   
     func setupUI() {
+        submitButton.isEnabled = false
         viewContainerForText.layer.cornerRadius = 10
         self.title = "Write a Review"
         textView.delegate = self
@@ -129,11 +139,16 @@ extension WriteReviewController: UITextViewDelegate {
             textView.textColor = UIColor.lightGray
 
             textView.selectedTextRange = textView.textRange(from: textView.beginningOfDocument, to: textView.beginningOfDocument)
+            submitButton.isEnabled = false
         }
         
         else if textView.textColor == UIColor.lightGray && !text.isEmpty {
             textView.textColor = UIColor.black
             textView.text = text
+            
+            if ratingView.rating > 0 {
+                submitButton.isEnabled = true
+            }
         }
 
         else {
@@ -141,13 +156,5 @@ extension WriteReviewController: UITextViewDelegate {
         }
         
         return false
-    }
-    
-    func textViewDidChange(_ textView: UITextView) {
-        if textView.hasText && textView.textColor == .black {
-            submitButton.isEnabled = true
-        } else {
-            submitButton.isEnabled = false
-        }
     }
 }
