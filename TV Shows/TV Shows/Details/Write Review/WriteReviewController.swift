@@ -28,16 +28,7 @@ final class WriteReviewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        roundViewCorners()
-        
-        self.title = "Write a Review"
-        textView.delegate = self
-        textView.text = "Enter your comment here..."
-        textView.textColor = UIColor.lightGray
-        let backButton: UIBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close))
-        backButton.tintColor = UIColor(named: "primary-color")
-        self.navigationItem.leftBarButtonItem = backButton;
+        setupUI()
     }
     
     // MARK: - Actions
@@ -105,8 +96,16 @@ private extension WriteReviewController {
             }
     }
   
-    func roundViewCorners() {
+    func setupUI() {
         viewContainerForText.layer.cornerRadius = 10
+        self.title = "Write a Review"
+        textView.delegate = self
+        textView.text = "Enter your comment here..."
+        textView.textColor = UIColor.lightGray
+        let backButton: UIBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close))
+        backButton.tintColor = UIColor(named: "primary-color")
+        navigationItem.leftBarButtonItem = backButton;
+        navigationController?.navigationBar.prefersLargeTitles = false
     }
 }
 

@@ -105,7 +105,7 @@ extension DetailsViewController: UITableViewDataSource {
                 for: indexPath
             ) as! DetailsShowTableViewCell
             
-            guard let show = show else { return UITableViewCell()}
+            guard let show = show else { return UITableViewCell() }
             showCell.configure(with: show)
             
             return showCell
@@ -131,13 +131,8 @@ private extension DetailsViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = UIView()
         tableView.dataSource = self
-        
-        guard let show = show else { return }
-        titleLabel.text = show.title
+        guard let show else { return }
+        self.title = show.title
         listReviews()
-    }
-    
-    func modifyBackButton() {
-        navigationController?.navigationItem.leftBarButtonItem?.tintColor = UIColor(named: "primary-color")
     }
 }

@@ -34,6 +34,7 @@ extension TVShowTableViewCell {
             with: imageUrl,
             placeholder: UIImage(named: "ic-show-placeholder-vertical"))
         titleLabel.text = item.title
+        setupUI()
     }
 }
 

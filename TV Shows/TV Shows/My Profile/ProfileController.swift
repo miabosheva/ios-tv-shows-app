@@ -97,6 +97,7 @@ private extension ProfileController {
         )
         profileImage.layer.cornerRadius = 50
         usernameLabel.text = self.user?.email ?? ""
+        navigationController?.navigationBar.prefersLargeTitles = false
     }
     
     func storeImage(_ image: UIImage) {
