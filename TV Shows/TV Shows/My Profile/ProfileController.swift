@@ -95,6 +95,7 @@ private extension ProfileController {
             with: imageUrl,
             placeholder: UIImage(named: "ic-profile-placeholder")
         )
+        profileImage.contentMode = .scaleAspectFill
         profileImage.layer.cornerRadius = 50
         usernameLabel.text = self.user?.email ?? ""
         navigationController?.navigationBar.prefersLargeTitles = false
@@ -102,9 +103,8 @@ private extension ProfileController {
     
     func storeImage(_ image: UIImage) {
         guard
-            let imageData = image.jpegData(compressionQuality: 0.9)
+            let imageData = image.jpegData(compressionQuality: 0.1)
         else { return }
-        
         let requestData = MultipartFormData()
         requestData.append(
             imageData,
@@ -112,9 +112,7 @@ private extension ProfileController {
             fileName: "image.jpg",
             mimeType: "image/jpg"
         )
-        
         guard let authInfo else { return }
-        
         AF
             .upload(
                 multipartFormData: requestData,
