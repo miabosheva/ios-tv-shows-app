@@ -30,6 +30,10 @@
 		42A453DD2A61F1E7003F5067 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42A453DC2A61F1E7003F5067 /* Home.storyboard */; };
 		42C822342A7B318500CE2CD2 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C822332A7B318500CE2CD2 /* ProfileController.swift */; };
 		42C822362A7B31AD00CE2CD2 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42C822352A7B31AD00CE2CD2 /* Profile.storyboard */; };
+		42C8223E2A80316D00CE2CD2 /* TopRated.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42C8223D2A80316D00CE2CD2 /* TopRated.storyboard */; };
+		42C822402A80317800CE2CD2 /* TopRatedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C8223F2A80317800CE2CD2 /* TopRatedController.swift */; };
+		42C822422A80390F00CE2CD2 /* TopRatedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C822412A80390F00CE2CD2 /* TopRatedResponse.swift */; };
+		42C822462A803B6300CE2CD2 /* CATransitionsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C822452A803B6300CE2CD2 /* CATransitionsExtension.swift */; };
 		83EC6941B50886D95719476C /* Pods_TV_Shows.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F14708C75C2F2233D76F5B1 /* Pods_TV_Shows.framework */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +64,10 @@
 		42A453DC2A61F1E7003F5067 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		42C822332A7B318500CE2CD2 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		42C822352A7B31AD00CE2CD2 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
+		42C8223D2A80316D00CE2CD2 /* TopRated.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TopRated.storyboard; sourceTree = "<group>"; };
+		42C8223F2A80317800CE2CD2 /* TopRatedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopRatedController.swift; sourceTree = "<group>"; };
+		42C822412A80390F00CE2CD2 /* TopRatedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopRatedResponse.swift; sourceTree = "<group>"; };
+		42C822452A803B6300CE2CD2 /* CATransitionsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CATransitionsExtension.swift; sourceTree = "<group>"; };
 		8F14708C75C2F2233D76F5B1 /* Pods_TV_Shows.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TV_Shows.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		97BB4DCAE08C2525DC01C8A2 /* Pods-TV Shows.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TV Shows.debug.xcconfig"; path = "Target Support Files/Pods-TV Shows/Pods-TV Shows.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -97,6 +105,7 @@
 		420E32732A587E8800C44A4A /* TV Shows */ = {
 			isa = PBXGroup;
 			children = (
+				42C8223C2A80315F00CE2CD2 /* Top Rated */,
 				42C822322A7B317100CE2CD2 /* My Profile */,
 				4256D0AE2A72969C00F0E90C /* Details */,
 				42A453D72A61F1A1003F5067 /* Home */,
@@ -108,6 +117,7 @@
 				420E327F2A587E8900C44A4A /* LaunchScreen.storyboard */,
 				420E32822A587E8900C44A4A /* Info.plist */,
 				429C1ED92A758B3F0046E293 /* UIKitExtensions.swift */,
+				42C822452A803B6300CE2CD2 /* CATransitionsExtension.swift */,
 			);
 			path = "TV Shows";
 			sourceTree = "<group>";
@@ -187,6 +197,16 @@
 				42C822352A7B31AD00CE2CD2 /* Profile.storyboard */,
 			);
 			path = "My Profile";
+			sourceTree = "<group>";
+		};
+		42C8223C2A80315F00CE2CD2 /* Top Rated */ = {
+			isa = PBXGroup;
+			children = (
+				42C8223D2A80316D00CE2CD2 /* TopRated.storyboard */,
+				42C8223F2A80317800CE2CD2 /* TopRatedController.swift */,
+				42C822412A80390F00CE2CD2 /* TopRatedResponse.swift */,
+			);
+			path = "Top Rated";
 			sourceTree = "<group>";
 		};
 		6CF102C3B2AE23C3CEE2C9D5 /* Frameworks */ = {
@@ -272,6 +292,7 @@
 				420E327E2A587E8900C44A4A /* Assets.xcassets in Resources */,
 				420E328C2A5CA7E000C44A4A /* Login.storyboard in Resources */,
 				42C822362A7B31AD00CE2CD2 /* Profile.storyboard in Resources */,
+				42C8223E2A80316D00CE2CD2 /* TopRated.storyboard in Resources */,
 				42A453DD2A61F1E7003F5067 /* Home.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -327,11 +348,13 @@
 			files = (
 				420E328E2A5CA7F600C44A4A /* LoginViewController.swift in Sources */,
 				420E32792A587E8800C44A4A /* ViewController.swift in Sources */,
+				42C822462A803B6300CE2CD2 /* CATransitionsExtension.swift in Sources */,
 				4256D0B32A7296D800F0E90C /* DetailsViewController.swift in Sources */,
 				4256D0B62A72A45400F0E90C /* DetailsShowTableViewCell.swift in Sources */,
 				4256D0AA2A712C6B00F0E90C /* Shows.swift in Sources */,
 				429C1ECE2A7321A00046E293 /* Review.swift in Sources */,
 				429C1ED02A732F4F0046E293 /* WriteReviewController.swift in Sources */,
+				42C822402A80317800CE2CD2 /* TopRatedController.swift in Sources */,
 				42C822342A7B318500CE2CD2 /* ProfileController.swift in Sources */,
 				420E32752A587E8800C44A4A /* AppDelegate.swift in Sources */,
 				4256D0B82A72A48F00F0E90C /* ReviewTableViewCell.swift in Sources */,
@@ -339,6 +362,7 @@
 				42A453DB2A61F1DD003F5067 /* HomeViewController.swift in Sources */,
 				4256D0AD2A71447400F0E90C /* TVShowsTableViewCell.swift in Sources */,
 				4259097D2A620C2900882A33 /* User.swift in Sources */,
+				42C822422A80390F00CE2CD2 /* TopRatedResponse.swift in Sources */,
 				429C1ED62A7406260046E293 /* RatingView.swift in Sources */,
 				429C1EDA2A758B3F0046E293 /* UIKitExtensions.swift in Sources */,
 			);

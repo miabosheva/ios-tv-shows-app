@@ -1,8 +1,8 @@
 //
-//  HomeViewController.swift
+//  TopRatedController.swift
 //  TV Shows
 //
-//  Created by Infinum Academy 6 on 14.7.23.
+//  Created by Infinum Academy 6 on 6.8.23.
 //
 
 import Foundation
@@ -10,21 +10,18 @@ import UIKit
 import Alamofire
 import MBProgressHUD
 
-
-final class HomeViewController : UIViewController {
+final class TopRatedController: UIViewController, CAAnimationDelegate {
     
     // MARK: - Outlets
     
+    @IBOutlet weak var topRatedNavButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var showsNavButton: UIButton!
     
     // MARK: - Properties
     
     var authInfo: AuthInfo?
     var userResponse: UserResponse?
     var shows: [Show] = []
-    var currentPage = 1
-    var totalPages = 0
     
     // MARK: - Lifecycle Methods
     
@@ -38,32 +35,26 @@ final class HomeViewController : UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        showsNavButton.isEnabled = false
+        topRatedNavButton.isEnabled = false
     }
     
     // MARK: - Actions
     
-    @IBAction func topRatedTap(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "TopRated", bundle: nil)
-        let topRatedController = storyboard.instantiateViewController(withIdentifier: "topRatedController") as! TopRatedController
-        topRatedController.authInfo = self.authInfo
+    @IBAction func showsTap(_ sender: Any) {
         
         DispatchQueue.main.async {
-            self.navigationController?.pushViewController(topRatedController, animated: true)
+
+            self.navigationController?.popViewController(animated: true)
         }
-    
-        showsNavButton.isEnabled = true
+        
+        topRatedNavButton.isEnabled = true
     }
     
 }
 
-private extension HomeViewController {
-    // MARK: - Helper Methods
+private extension TopRatedController {
     
-    func loadData() {
-        listShows()
-        currentPage += 1
-    }
+    // MARK: - Helper Methods
     
     func configureRefreshControl() {
         tableView.refreshControl = UIRefreshControl()
@@ -79,13 +70,15 @@ private extension HomeViewController {
         )
         profileDetailsItem.tintColor = UIColor(named: "primary-color")
         navigationItem.rightBarButtonItem = profileDetailsItem
-        showsNavButton.setImage(UIImage(named: "ic-show-deselected"), for: .disabled)
+        navigationItem.setHidesBackButton(true, animated: true)
+        topRatedNavButton.setImage(UIImage(named: "ic-top-rated-deselected"), for: .disabled)
+        topRatedNavButton.isEnabled = false
     }
 }
 
 // MARK: - GET Request for Shows
 
-private extension HomeViewController {
+private extension TopRatedController {
     
     @objc func listShows() {
         
@@ -93,19 +86,16 @@ private extension HomeViewController {
         
         AF
             .request(
-                "https://tv-shows.infinum.academy/shows",
+                "https://tv-shows.infinum.academy/shows/top_rated",
                 method: .get,
-                parameters: ["page": currentPage, "items": "20"], // pagination arguments
                 headers: HTTPHeaders(authInfo.headers)
             )
             .validate()
-            .responseDecodable(of: ShowsResponse.self) { [weak self] dataResponse in
+            .responseDecodable(of: TopRatedResponse.self) { [weak self] dataResponse in
                 guard let self = self else { return }
                 MBProgressHUD.hide(for: self.view, animated: true)
                 switch dataResponse.result {
                 case .success(let showsResponse):
-                    totalPages = showsResponse.meta.pagination.pages
-                    currentPage = showsResponse.meta.pagination.page
                     self.shows.append(contentsOf: showsResponse.shows)
                     tableView.reloadData()
                 case .failure(let error):
@@ -115,7 +105,7 @@ private extension HomeViewController {
     }
 }
 
-extension HomeViewController: UITableViewDelegate {
+extension TopRatedController: UITableViewDelegate {
     
     // MARK: - UITableViewDelegate
     
@@ -130,7 +120,7 @@ extension HomeViewController: UITableViewDelegate {
     }
 }
 
-extension HomeViewController: UITableViewDataSource {
+extension TopRatedController: UITableViewDataSource {
     
     // MARK: - UITableViewDataSource
     
@@ -149,17 +139,11 @@ extension HomeViewController: UITableViewDataSource {
         
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == shows.count - 1, currentPage < totalPages {
-            loadData()
-        }
-    }
 }
 
 // MARK: - Private
 
-private extension HomeViewController {
+private extension TopRatedController {
     
     func setupTableView() {
         tableView.estimatedRowHeight = 110
@@ -196,4 +180,3 @@ private extension HomeViewController {
         navigationController?.setViewControllers([loginController], animated: true)
     }
 }
-
