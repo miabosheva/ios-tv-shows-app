@@ -32,7 +32,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="393" height="120.33333333333333"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QhH-Mq-MSS">
-                                                            <rect key="frame" x="0.0" y="0.0" width="15" height="120.33333333333333"/>
+                                                            <rect key="frame" x="0.0" y="35.333333333333336" width="15" height="50.000000000000007"/>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="15" id="xKc-kW-v4F"/>
@@ -46,7 +46,7 @@
                                                             </constraints>
                                                         </imageView>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vpo-4I-fRQ">
-                                                            <rect key="frame" x="79" y="0.0" width="23" height="120.33333333333333"/>
+                                                            <rect key="frame" x="79" y="35.333333333333336" width="23" height="50.000000000000007"/>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="23" id="0Z4-0a-DiX"/>
@@ -59,7 +59,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wen-FQ-6ce">
-                                                            <rect key="frame" x="378" y="0.0" width="15" height="120.33333333333333"/>
+                                                            <rect key="frame" x="378" y="35.333333333333336" width="15" height="50.000000000000007"/>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="15" id="iTP-H3-SCL"/>
@@ -88,15 +88,15 @@
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="3LB-Qg-kdN" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="1Ot-5B-pvB"/>
-                            <constraint firstItem="3LB-Qg-kdN" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="2Sv-tA-Jsv"/>
                             <constraint firstAttribute="trailing" secondItem="3LB-Qg-kdN" secondAttribute="trailing" id="5ER-0S-0cO"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="3LB-Qg-kdN" secondAttribute="bottom" id="NJr-A7-7Ow"/>
+                            <constraint firstItem="3LB-Qg-kdN" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="QHP-71-wfy"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="yOy-gU-5gf"/>
+                    <navigationItem key="navigationItem" title="Shows" id="yOy-gU-5gf"/>
                     <connections>
                         <outlet property="tableView" destination="3LB-Qg-kdN" id="u6B-Ok-P3W"/>
                     </connections>
@@ -124,6 +124,7 @@
             <point key="canvasLocation" x="947.32824427480909" y="-2.1126760563380285"/>
         </scene>
     </scenes>
+    <color key="tintColor" red="0.32156862749999998" green="0.21176470589999999" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

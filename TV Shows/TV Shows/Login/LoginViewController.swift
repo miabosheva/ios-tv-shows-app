@@ -36,6 +36,16 @@ final class LoginViewController : UIViewController {
         setButtonsAsDisabled()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
     // MARK: - Actions
     
     @IBAction func rememberMeButtonTap() {
@@ -82,11 +92,11 @@ final class LoginViewController : UIViewController {
 
 private extension LoginViewController {
     
-    private func navigateToHomeController() {
+    func navigateToHomeController() {
         let storyboard = UIStoryboard(name: "Home", bundle: nil)
-            
+        
         let homeController = storyboard.instantiateViewController(withIdentifier: "homeController") as! HomeViewController
-            
+        
         navigationController?.setViewControllers([homeController], animated: true)
         
         homeController.authInfo = self.authInfo
@@ -97,16 +107,16 @@ private extension LoginViewController {
 // MARK: - Register + automatic JSON parsing
 
 private extension LoginViewController {
-
+    
     func registerUserWith(email: String, password: String) {
         MBProgressHUD.showAdded(to: view, animated: true)
-
+        
         let parameters: [String: String] = [
             "email": email,
             "password": password,
             "password_confirmation": password
         ]
-
+        
         AF
             .request(
                 "https://tv-shows.infinum.academy/users",
@@ -131,21 +141,21 @@ private extension LoginViewController {
                 }
             }
     }
-
+    
 }
 
 // MARK: - Login + automatic JSON parsing
 
 private extension LoginViewController {
-
+    
     func loginUserWith(email: String, password: String) {
         MBProgressHUD.showAdded(to: view, animated: true)
-
+        
         let parameters: [String: String] = [
             "email": email,
             "password": password
         ]
-
+        
         AF
             .request(
                 "https://tv-shows.infinum.academy/users/sign_in",
@@ -170,7 +180,7 @@ private extension LoginViewController {
                 }
             }
     }
-
+    
     func handleSuccesfulLogin(for user: User, headers: [String: String]) {
         guard let authInfo = try? AuthInfo(headers: headers) else {
             print("Missing headers")
@@ -202,7 +212,7 @@ private extension LoginViewController {
 
 private extension LoginViewController {
     
-    func checkIfTextFieldsAreEmpty(){
+    func checkIfTextFieldsAreEmpty() {
         if emailTextField.text == "" || passwordTextField.text == "" {
             setButtonsAsDisabled()
         } else {
@@ -210,19 +220,19 @@ private extension LoginViewController {
         }
     }
     
-    func setButtonsAsDisabled(){
+    func setButtonsAsDisabled() {
         loginButton.alpha = 0.5
         loginButton.isEnabled = false
         registerButton.isEnabled = false
     }
     
-    func setButtonsAsEnabled(){
+    func setButtonsAsEnabled() {
         loginButton.alpha = 1.0
         loginButton.isEnabled = true
         registerButton.isEnabled = true
     }
     
-    func setAtttributedPlacehordersEmailAndPassword(){
+    func setAtttributedPlacehordersEmailAndPassword() {
         
         let placeholderAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.7),
@@ -233,17 +243,17 @@ private extension LoginViewController {
         passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: placeholderAttributes)
     }
     
-    func setTitleColorLoginAndRegisterBtn(){
+    func setTitleColorLoginAndRegisterBtn() {
         loginButton.setTitleColor(UIColor.white.withAlphaComponent(0.7), for: .disabled)
         registerButton.setTitleColor(UIColor.white.withAlphaComponent(0.7), for: .disabled)
     }
     
-    func showAlert(){
+    func showAlert() {
         let alertController = UIAlertController(title: "Login failed", message: "Credentials are not valid.", preferredStyle: .alert)
-
+        
         let OKAction = UIAlertAction(title: "OK", style: .default)
         alertController.addAction(OKAction)
-
+        
         self.present(alertController, animated: true)
     }
 }

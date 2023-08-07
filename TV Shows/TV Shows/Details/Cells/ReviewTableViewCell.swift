@@ -36,7 +36,7 @@ final class ReviewTableViewCell : UITableViewCell {
 // MARK: - Configure
 
 extension ReviewTableViewCell {
-
+    
     func configure(with item: Review) {
         let url = item.user.imageUrl ?? ""
         let imageUrl = URL(string: url)
@@ -54,7 +54,7 @@ extension ReviewTableViewCell {
 // MARK: - Private
 
 private extension ReviewTableViewCell {
-
+    
     func setupUI() {
         userThumbnail.layer.cornerRadius = 10
         userThumbnail.layer.masksToBounds = true

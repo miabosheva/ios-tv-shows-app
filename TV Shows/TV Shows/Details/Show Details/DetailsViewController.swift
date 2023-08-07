@@ -26,12 +26,12 @@ final class DetailsViewController : UIViewController {
         super.viewDidLoad()
         loadShowDetails()
     }
-
+    
     
     // MARK: - Actions
     @IBAction func addAReviewButtonTap() {
         let storyboard = UIStoryboard(name: "WriteReview", bundle: nil)
-                
+        
         let writeReviewController = storyboard.instantiateViewController(withIdentifier: "writeReviewController") as! WriteReviewController
         
         writeReviewController.authInfo = self.authInfo
@@ -46,26 +46,26 @@ final class DetailsViewController : UIViewController {
     
     func listReviews(){
         guard let authInfo = authInfo,
-        let show = show else { return }
-
+              let show = show else { return }
+        
         AF
-          .request(
-            "https://tv-shows.infinum.academy/shows/\(show.id)/reviews",
-              method: .get,
-              headers: HTTPHeaders(authInfo.headers)
-          )
-          .validate()
-          .responseDecodable(of: ReviewResponse.self) { [weak self] dataResponse in
-              guard let self = self else { return }
-              switch dataResponse.result {
-              case .success(let review):
-                  print(review.reviews)
-                  self.reviews = review.reviews
-                  tableView.reloadData()
-              case .failure(let error):
-                  print(error.localizedDescription)
-              }
-          }
+            .request(
+                "https://tv-shows.infinum.academy/shows/\(show.id)/reviews",
+                method: .get,
+                headers: HTTPHeaders(authInfo.headers)
+            )
+            .validate()
+            .responseDecodable(of: ReviewResponse.self) { [weak self] dataResponse in
+                guard let self = self else { return }
+                switch dataResponse.result {
+                case .success(let review):
+                    print(review.reviews)
+                    self.reviews = review.reviews
+                    tableView.reloadData()
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
     }
     
 }
@@ -83,7 +83,7 @@ extension DetailsViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
-
+    
     // MARK: - UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -98,21 +98,21 @@ extension DetailsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-         
+        
         if indexPath.section == 0 {
             let showCell = tableView.dequeueReusableCell(
                 withIdentifier: String(describing: DetailsShowTableViewCell.self),
                 for: indexPath
             ) as! DetailsShowTableViewCell
-
-            guard let show = show else { return UITableViewCell()}
+            
+            guard let show = show else { return UITableViewCell() }
             showCell.configure(with: show)
             
             return showCell
         }
         else {
             let reviewCell = tableView.dequeueReusableCell(withIdentifier: String(describing: ReviewTableViewCell.self),
-                for: indexPath
+                                                           for: indexPath
             ) as! ReviewTableViewCell
             
             guard let reviews = reviews else { return UITableViewCell()}
@@ -123,15 +123,16 @@ extension DetailsViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - Helper Methods
+
 private extension DetailsViewController {
-    func loadShowDetails(){
+    func loadShowDetails() {
         tableView.estimatedRowHeight = 1000
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = UIView()
         tableView.dataSource = self
-        
-        guard let show = show else { return }
-        titleLabel.text = show.title
+        guard let show else { return }
+        self.title = show.title
         listReviews()
     }
 }

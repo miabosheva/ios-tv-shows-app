@@ -9,9 +9,9 @@ import Foundation
 import UIKit
 
 final class DetailsShowTableViewCell: UITableViewCell {
-
+    
     // MARK: - Private UI
-
+    
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var ratingView: RatingView!
     @IBOutlet weak var descriptionLabel: UILabel!
@@ -38,7 +38,7 @@ final class DetailsShowTableViewCell: UITableViewCell {
 // MARK: - Configure
 
 extension DetailsShowTableViewCell {
-
+    
     func configure(with item: Show) {
         let imageUrl = URL(string: item.imageUrl)
         showImage.kf.setImage(
@@ -47,7 +47,7 @@ extension DetailsShowTableViewCell {
         
         descriptionLabel.text = item.description ?? "No text"
         guard let noOfReviews = item.noOfReviews,
-            let averageRating = item.averageRating else {
+              let averageRating = item.averageRating else {
             reviewSummaryView.isHidden = true
             noReviewsView.isHidden = false
             return
@@ -62,7 +62,7 @@ extension DetailsShowTableViewCell {
 // MARK: - Private
 
 private extension DetailsShowTableViewCell {
-
+    
     func setupUI() {
         showImage.layer.cornerRadius = 10
         showImage.layer.masksToBounds = true

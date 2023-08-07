@@ -28,15 +28,10 @@ final class WriteReviewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
         
-        roundViewCorners()
-        
-        self.title = "Write a Review"
-        textView.delegate = self
-        textView.text = "Enter your comment here..."
-        textView.textColor = UIColor.lightGray
-        let backButton: UIBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close))
-        self.navigationItem.leftBarButtonItem = backButton;
+        let tap = UITapGestureRecognizer(target: self, action: #selector(checkRating))
+        ratingView.addGestureRecognizer(tap)
     }
     
     // MARK: - Actions
@@ -86,7 +81,13 @@ private extension WriteReviewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func animateSubmitButtonTap(){
+    @objc func checkRating(){
+        if ratingView.rating > 0 && textView.textColor == .black {
+            submitButton.isEnabled = true
+        }
+    }
+    
+    func animateSubmitButtonTap() {
         let newTransform = CGAffineTransform(
             scaleX: 0.9,
             y: 0.9
@@ -104,8 +105,17 @@ private extension WriteReviewController {
             }
     }
   
-    func roundViewCorners(){
-        viewContainerForText.layer.cornerRadius = 12
+    func setupUI() {
+        submitButton.isEnabled = false
+        viewContainerForText.layer.cornerRadius = 10
+        self.title = "Write a Review"
+        textView.delegate = self
+        textView.text = "Enter your comment here..."
+        textView.textColor = UIColor.lightGray
+        let backButton: UIBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close))
+        backButton.tintColor = UIColor(named: "primary-color")
+        navigationItem.leftBarButtonItem = backButton;
+        navigationController?.navigationBar.prefersLargeTitles = false
     }
 }
 
@@ -129,15 +139,22 @@ extension WriteReviewController: UITextViewDelegate {
             textView.textColor = UIColor.lightGray
 
             textView.selectedTextRange = textView.textRange(from: textView.beginningOfDocument, to: textView.beginningOfDocument)
+            submitButton.isEnabled = false
         }
+        
         else if textView.textColor == UIColor.lightGray && !text.isEmpty {
             textView.textColor = UIColor.black
             textView.text = text
+            
+            if ratingView.rating > 0 {
+                submitButton.isEnabled = true
+            }
         }
 
         else {
             return true
         }
+        
         return false
     }
 }
