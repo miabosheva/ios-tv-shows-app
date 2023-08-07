@@ -16,7 +16,6 @@ final class HomeViewController : UIViewController {
     // MARK: - Outlets
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var showsNavButton: UIButton!
     
     // MARK: - Properties
     
@@ -25,6 +24,7 @@ final class HomeViewController : UIViewController {
     var shows: [Show] = []
     var currentPage = 1
     var totalPages = 0
+    var requestURL: String?
     
     // MARK: - Lifecycle Methods
     
@@ -36,25 +36,7 @@ final class HomeViewController : UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(didLogout), name: NSNotification.Name(rawValue: "didLogout"), object: nil)
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        showsNavButton.isEnabled = false
-    }
-    
-    // MARK: - Actions
-    
-    @IBAction func topRatedTap(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "TopRated", bundle: nil)
-        let topRatedController = storyboard.instantiateViewController(withIdentifier: "topRatedController") as! TopRatedController
-        topRatedController.authInfo = self.authInfo
-        
-        DispatchQueue.main.async {
-            self.navigationController?.pushViewController(topRatedController, animated: true)
-        }
-    
-        showsNavButton.isEnabled = true
-    }
-    
+
 }
 
 private extension HomeViewController {
@@ -79,7 +61,6 @@ private extension HomeViewController {
         )
         profileDetailsItem.tintColor = UIColor(named: "primary-color")
         navigationItem.rightBarButtonItem = profileDetailsItem
-        showsNavButton.setImage(UIImage(named: "ic-show-deselected"), for: .disabled)
     }
 }
 
@@ -91,11 +72,22 @@ private extension HomeViewController {
         
         guard let authInfo = authInfo else { return }
         
+        if self.tabBarItem.tag == 0 {
+            requestURL = "https://tv-shows.infinum.academy/shows/top_rated"
+            self.title = "Top Rated"
+        }
+        else {
+            requestURL = "https://tv-shows.infinum.academy/shows"
+            self.title = "Shows"
+        }
+        
+        guard let requestURL else { return }
+        
         AF
             .request(
-                "https://tv-shows.infinum.academy/shows",
+                requestURL,
                 method: .get,
-                parameters: ["page": currentPage, "items": "20"], // pagination arguments
+                parameters: ["page": currentPage, "items": "20"], 
                 headers: HTTPHeaders(authInfo.headers)
             )
             .validate()
@@ -104,8 +96,8 @@ private extension HomeViewController {
                 MBProgressHUD.hide(for: self.view, animated: true)
                 switch dataResponse.result {
                 case .success(let showsResponse):
-                    totalPages = showsResponse.meta.pagination.pages
-                    currentPage = showsResponse.meta.pagination.page
+                    totalPages = showsResponse.meta?.pagination.pages ?? 1
+                    currentPage = showsResponse.meta?.pagination.page ?? 1
                     self.shows.append(contentsOf: showsResponse.shows)
                     tableView.reloadData()
                 case .failure(let error):

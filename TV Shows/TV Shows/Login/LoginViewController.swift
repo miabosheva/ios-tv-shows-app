@@ -93,14 +93,23 @@ final class LoginViewController : UIViewController {
 private extension LoginViewController {
     
     func navigateToHomeController() {
+        let tabBarController = UITabBarController()
         let storyboard = UIStoryboard(name: "Home", bundle: nil)
-        
-        let homeController = storyboard.instantiateViewController(withIdentifier: "homeController") as! HomeViewController
-        
-        navigationController?.setViewControllers([homeController], animated: true)
-        
-        homeController.authInfo = self.authInfo
-        homeController.userResponse = self.userResponse
+        let homeControllerShows = storyboard.instantiateViewController(withIdentifier: "homeController") as! HomeViewController
+        let homeControllerTopRated = storyboard.instantiateViewController(withIdentifier: "homeController") as! HomeViewController
+        homeControllerShows.authInfo = authInfo
+        homeControllerShows.userResponse = self.userResponse
+        homeControllerTopRated.authInfo = authInfo
+        homeControllerTopRated.userResponse = self.userResponse
+        homeControllerShows.tabBarItem.tag = 1
+        homeControllerShows.tabBarItem.image = UIImage(named: "ic-show-selected")
+        homeControllerShows.tabBarItem.title = "Shows"
+        homeControllerTopRated.tabBarItem = UITabBarItem(tabBarSystemItem: .topRated, tag: 0)
+        let controllers = [homeControllerShows, homeControllerTopRated]
+        tabBarController.viewControllers = controllers.map { UINavigationController(rootViewController: $0)}
+        tabBarController.tabBar.tintColor = UIColor(named: "primary-color")
+        tabBarController.modalPresentationStyle = .fullScreen
+        self.present(tabBarController, animated: true, completion: nil)
     }
 }
 

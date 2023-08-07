@@ -20,7 +20,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let _ = (scene as? UIWindowScene) else { return }
         
         // Create navigation controller in which we will embed our starting view controller
-        let navigationController = UINavigationController()
         
         let keychain = Keychain(service: "com.infinum.tv-shows")
         guard let savedAuthInfo = try? keychain.getData("authInfo") else { return }
@@ -29,17 +28,29 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // Check if user picked remember me
         if authInfo != nil {
+            let tabBarController = UITabBarController()
             let storyboard = UIStoryboard(name: "Home", bundle: nil)
-            let homeController = storyboard.instantiateViewController(withIdentifier: "homeController") as! HomeViewController
-            homeController.authInfo = authInfo
-            navigationController.setViewControllers([homeController], animated: true)
+            let homeControllerShows = storyboard.instantiateViewController(withIdentifier: "homeController") as! HomeViewController
+            let homeControllerTopRated = storyboard.instantiateViewController(withIdentifier: "homeController") as! HomeViewController
+            homeControllerShows.authInfo = authInfo
+            homeControllerTopRated.authInfo = authInfo
+            homeControllerShows.tabBarItem.tag = 1
+            homeControllerShows.tabBarItem.image = UIImage(named: "ic-show-selected")
+            homeControllerShows.tabBarItem.title = "Shows"
+            homeControllerTopRated.tabBarItem = UITabBarItem(tabBarSystemItem: .topRated, tag: 0)
+            let controllers = [homeControllerShows, homeControllerTopRated]
+            tabBarController.viewControllers = controllers.map { UINavigationController(rootViewController: $0)}
+            tabBarController.tabBar.tintColor = UIColor(named: "primary-color")
+            window?.rootViewController = tabBarController
+            window?.makeKeyAndVisible()
+            
         } else {
+            let navigationController = UINavigationController()
             let storyboard = UIStoryboard(name: "Login", bundle: nil)
             let loginController = storyboard.instantiateViewController(withIdentifier: "loginController") as! LoginViewController
             navigationController.setViewControllers([loginController], animated: true)
+            window?.rootViewController = navigationController
         }
-        // Set the navigation controller as starting point of the app
-        window?.rootViewController = navigationController
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {

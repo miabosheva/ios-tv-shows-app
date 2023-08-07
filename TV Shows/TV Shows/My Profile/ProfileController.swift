@@ -29,7 +29,11 @@ final class ProfileController: UIViewController {
         super.viewDidLoad()
         imagePicker.delegate = self
         setupBackButton()
-        fetchUserFromBackend()
+        if self.user == nil {
+            fetchUserFromBackend()
+        } else {
+            setupUI()
+        }
     }
 }
 
