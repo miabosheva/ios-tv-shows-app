@@ -24,6 +24,7 @@ final class HomeViewController : UIViewController {
     var shows: [Show] = []
     var currentPage = 1
     var totalPages = 0
+    var requestURL: String?
     
     // MARK: - Lifecycle Methods
     
@@ -35,6 +36,7 @@ final class HomeViewController : UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(didLogout), name: NSNotification.Name(rawValue: "didLogout"), object: nil)
     }
+
 }
 
 private extension HomeViewController {
@@ -70,11 +72,13 @@ private extension HomeViewController {
         
         guard let authInfo = authInfo else { return }
         
+        guard let requestURL else { return }
+        
         AF
             .request(
-                "https://tv-shows.infinum.academy/shows",
+                requestURL,
                 method: .get,
-                parameters: ["page": currentPage, "items": "20"], // pagination arguments
+                parameters: ["page": currentPage, "items": "20"], 
                 headers: HTTPHeaders(authInfo.headers)
             )
             .validate()
@@ -83,8 +87,8 @@ private extension HomeViewController {
                 MBProgressHUD.hide(for: self.view, animated: true)
                 switch dataResponse.result {
                 case .success(let showsResponse):
-                    totalPages = showsResponse.meta.pagination.pages
-                    currentPage = showsResponse.meta.pagination.page
+                    totalPages = showsResponse.meta?.pagination.pages ?? 1
+                    currentPage = showsResponse.meta?.pagination.page ?? 1
                     self.shows.append(contentsOf: showsResponse.shows)
                     tableView.reloadData()
                 case .failure(let error):

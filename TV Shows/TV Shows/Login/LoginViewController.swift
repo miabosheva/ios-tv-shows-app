@@ -93,14 +93,37 @@ final class LoginViewController : UIViewController {
 private extension LoginViewController {
     
     func navigateToHomeController() {
+        let tabBarController = UITabBarController()
         let storyboard = UIStoryboard(name: "Home", bundle: nil)
         
-        let homeController = storyboard.instantiateViewController(withIdentifier: "homeController") as! HomeViewController
+        let homeControllerShows = storyboard.instantiateViewController(withIdentifier: "homeController") as! HomeViewController
+        setupHomeControllerShows(showsVC: homeControllerShows)
         
-        navigationController?.setViewControllers([homeController], animated: true)
+        let homeControllerTopRated = storyboard.instantiateViewController(withIdentifier: "homeController") as! HomeViewController
+        setupHomeControllerTopRated(topRatedVC: homeControllerTopRated)
         
-        homeController.authInfo = self.authInfo
-        homeController.userResponse = self.userResponse
+        let controllers = [homeControllerShows, homeControllerTopRated]
+        tabBarController.viewControllers = controllers.map { UINavigationController(rootViewController: $0)}
+        tabBarController.tabBar.tintColor = UIColor(named: "primary-color")
+        tabBarController.modalPresentationStyle = .fullScreen
+        self.present(tabBarController, animated: true, completion: nil)
+    }
+    
+    func setupHomeControllerShows(showsVC: HomeViewController) {
+        showsVC.authInfo = authInfo
+        showsVC.userResponse = self.userResponse
+        showsVC.requestURL = "https://tv-shows.infinum.academy/shows"
+        showsVC.tabBarItem.tag = 1
+        showsVC.tabBarItem.image = UIImage(named: "ic-show-selected")
+        showsVC.title = "Shows"
+    }
+    
+    func setupHomeControllerTopRated(topRatedVC: HomeViewController){
+        topRatedVC.authInfo = authInfo
+        topRatedVC.userResponse = self.userResponse
+        topRatedVC.requestURL = "https://tv-shows.infinum.academy/shows/top_rated"
+        topRatedVC.tabBarItem = UITabBarItem(tabBarSystemItem: .topRated, tag: 0)
+        topRatedVC.title = "Top Rated"
     }
 }
 

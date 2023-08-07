@@ -20,28 +20,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let _ = (scene as? UIWindowScene) else { return }
         
         // Create navigation controller in which we will embed our starting view controller
-        let navigationController = UINavigationController()
         
         let keychain = Keychain(service: "com.infinum.tv-shows")
         guard let savedAuthInfo = try? keychain.getData("authInfo") else { return }
         let decoder = JSONDecoder()
-        let authInfo = try? decoder.decode(AuthInfo.self, from: savedAuthInfo)
-        
-        // Check if user picked remember me
-        if authInfo != nil {
+        if let authInfo = try? decoder.decode(AuthInfo.self, from: savedAuthInfo) {
+            let tabBarController = UITabBarController()
             let storyboard = UIStoryboard(name: "Home", bundle: nil)
-            let homeController = storyboard.instantiateViewController(withIdentifier: "homeController") as! HomeViewController
-            homeController.authInfo = authInfo
-            // TODO: - Fix
-            navigationController.navigationBar.prefersLargeTitles = true
-            navigationController.setViewControllers([homeController], animated: true)
+            
+            let homeControllerShows = storyboard.instantiateViewController(withIdentifier: "homeController") as! HomeViewController
+            setupHomeControllerShows(showsVC: homeControllerShows, authInfo: authInfo)
+            let homeControllerTopRated = storyboard.instantiateViewController(withIdentifier: "homeController") as! HomeViewController
+            setupHomeControllerTopRated(topRatedVC: homeControllerTopRated, authInfo: authInfo)
+
+            let controllers = [homeControllerShows, homeControllerTopRated]
+            tabBarController.viewControllers = controllers.map { UINavigationController(rootViewController: $0)}
+            tabBarController.tabBar.tintColor = UIColor(named: "primary-color")
+            window?.rootViewController = tabBarController
+            window?.makeKeyAndVisible()
         } else {
+            let navigationController = UINavigationController()
             let storyboard = UIStoryboard(name: "Login", bundle: nil)
             let loginController = storyboard.instantiateViewController(withIdentifier: "loginController") as! LoginViewController
             navigationController.setViewControllers([loginController], animated: true)
+            window?.rootViewController = navigationController
         }
-        // Set the navigation controller as starting point of the app
-        window?.rootViewController = navigationController
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -73,5 +76,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     
+}
+
+private extension SceneDelegate {
+    
+    func setupHomeControllerShows(showsVC: HomeViewController, authInfo: AuthInfo) {
+        showsVC.authInfo = authInfo
+        showsVC.requestURL = "https://tv-shows.infinum.academy/shows"
+        showsVC.tabBarItem.tag = 1
+        showsVC.tabBarItem.image = UIImage(named: "ic-show-selected")
+        showsVC.title = "Shows"
+    }
+    
+    func setupHomeControllerTopRated(topRatedVC: HomeViewController, authInfo: AuthInfo){
+        topRatedVC.authInfo = authInfo
+        topRatedVC.requestURL = "https://tv-shows.infinum.academy/shows/top_rated"
+        topRatedVC.tabBarItem = UITabBarItem(tabBarSystemItem: .topRated, tag: 0)
+        topRatedVC.title = "Top Rated"
+    }
 }
 

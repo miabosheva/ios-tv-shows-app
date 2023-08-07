@@ -27,7 +27,7 @@ struct Show: Decodable {
 
 struct ShowsResponse: Decodable {
     let shows: [Show]
-    let meta: Meta
+    let meta: Meta?
 }
 
 struct Meta: Decodable {
