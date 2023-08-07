@@ -72,15 +72,6 @@ private extension HomeViewController {
         
         guard let authInfo = authInfo else { return }
         
-        if self.tabBarItem.tag == 0 {
-            requestURL = "https://tv-shows.infinum.academy/shows/top_rated"
-            self.title = "Top Rated"
-        }
-        else {
-            requestURL = "https://tv-shows.infinum.academy/shows"
-            self.title = "Shows"
-        }
-        
         guard let requestURL else { return }
         
         AF

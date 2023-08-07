@@ -24,26 +24,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let keychain = Keychain(service: "com.infinum.tv-shows")
         guard let savedAuthInfo = try? keychain.getData("authInfo") else { return }
         let decoder = JSONDecoder()
-        let authInfo = try? decoder.decode(AuthInfo.self, from: savedAuthInfo)
-        
-        // Check if user picked remember me
-        if authInfo != nil {
+        if let authInfo = try? decoder.decode(AuthInfo.self, from: savedAuthInfo) {
             let tabBarController = UITabBarController()
             let storyboard = UIStoryboard(name: "Home", bundle: nil)
+            
             let homeControllerShows = storyboard.instantiateViewController(withIdentifier: "homeController") as! HomeViewController
+            setupHomeControllerShows(showsVC: homeControllerShows, authInfo: authInfo)
             let homeControllerTopRated = storyboard.instantiateViewController(withIdentifier: "homeController") as! HomeViewController
-            homeControllerShows.authInfo = authInfo
-            homeControllerTopRated.authInfo = authInfo
-            homeControllerShows.tabBarItem.tag = 1
-            homeControllerShows.tabBarItem.image = UIImage(named: "ic-show-selected")
-            homeControllerShows.tabBarItem.title = "Shows"
-            homeControllerTopRated.tabBarItem = UITabBarItem(tabBarSystemItem: .topRated, tag: 0)
+            setupHomeControllerTopRated(topRatedVC: homeControllerTopRated, authInfo: authInfo)
+
             let controllers = [homeControllerShows, homeControllerTopRated]
             tabBarController.viewControllers = controllers.map { UINavigationController(rootViewController: $0)}
             tabBarController.tabBar.tintColor = UIColor(named: "primary-color")
             window?.rootViewController = tabBarController
             window?.makeKeyAndVisible()
-            
         } else {
             let navigationController = UINavigationController()
             let storyboard = UIStoryboard(name: "Login", bundle: nil)
@@ -82,5 +76,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     
+}
+
+private extension SceneDelegate {
+    
+    func setupHomeControllerShows(showsVC: HomeViewController, authInfo: AuthInfo) {
+        showsVC.authInfo = authInfo
+        showsVC.requestURL = "https://tv-shows.infinum.academy/shows"
+        showsVC.tabBarItem.tag = 1
+        showsVC.tabBarItem.image = UIImage(named: "ic-show-selected")
+        showsVC.title = "Shows"
+    }
+    
+    func setupHomeControllerTopRated(topRatedVC: HomeViewController, authInfo: AuthInfo){
+        topRatedVC.authInfo = authInfo
+        topRatedVC.requestURL = "https://tv-shows.infinum.academy/shows/top_rated"
+        topRatedVC.tabBarItem = UITabBarItem(tabBarSystemItem: .topRated, tag: 0)
+        topRatedVC.title = "Top Rated"
+    }
 }
 
